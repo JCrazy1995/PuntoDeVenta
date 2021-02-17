@@ -6,7 +6,9 @@
 package Usuarios;
 
 import java.awt.Dimension;
-
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 /**
  *
  * @author carlo
@@ -29,7 +31,14 @@ public class frmClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel1 = new javax.swing.JDesktopPane();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/arrow.jpg"));
+        Image image = icon.getImage();
+        panel1 = new javax.swing.JDesktopPane(){
+
+            public void paintComponent(Graphics g){
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        };
         btnUsuarioCrear = new javax.swing.JButton();
         btnbuscar = new javax.swing.JButton();
 
