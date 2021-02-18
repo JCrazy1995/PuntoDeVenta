@@ -39,7 +39,7 @@ public class conexion {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url, username, password);
-            JOptionPane.showMessageDialog(null, "Se conecto");
+//            JOptionPane.showMessageDialog(null, "Se conecto");
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null,e);
         }

@@ -18,6 +18,8 @@ public class frmClientes extends javax.swing.JFrame {
     /**
      * Creates new form frmUsuarios
      */
+    Dimension desktopSize;// variable para posicionar el jinternal
+    Dimension FrameSize;// variable para posicionar el jinternal
     public frmClientes() {
         initComponents();
     }
@@ -41,6 +43,7 @@ public class frmClientes extends javax.swing.JFrame {
         };
         btnUsuarioCrear = new javax.swing.JButton();
         btnbuscar = new javax.swing.JButton();
+        btneditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,8 +61,16 @@ public class frmClientes extends javax.swing.JFrame {
             }
         });
 
+        btneditar.setText("Editar");
+        btneditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditarActionPerformed(evt);
+            }
+        });
+
         panel1.setLayer(btnUsuarioCrear, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(btnbuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panel1.setLayer(btneditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -70,7 +81,9 @@ public class frmClientes extends javax.swing.JFrame {
                 .addComponent(btnUsuarioCrear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnbuscar)
-                .addContainerGap(625, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(btneditar)
+                .addContainerGap(535, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,8 +91,9 @@ public class frmClientes extends javax.swing.JFrame {
                 .addGap(69, 69, 69)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUsuarioCrear)
-                    .addComponent(btnbuscar))
-                .addContainerGap(362, Short.MAX_VALUE))
+                    .addComponent(btnbuscar)
+                    .addComponent(btneditar))
+                .addContainerGap(416, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -90,8 +104,7 @@ public class frmClientes extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(panel1)
                 .addContainerGap())
         );
@@ -103,9 +116,9 @@ public class frmClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
         frmClientesNuevos nuevos= new frmClientesNuevos();
         panel1.add(nuevos);
-        Dimension desktopSize = panel1.getSize();
-        Dimension FrameSize = nuevos.getSize();
-        nuevos.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        desktopSize = panel1.getSize();
+        FrameSize = nuevos.getSize();
+        nuevos.setLocation((desktopSize.width - FrameSize.width)/3, (desktopSize.height- FrameSize.height)/3);
         btnUsuarioCrear.setVisible(false);
         btnbuscar.setVisible(false);
         nuevos.show();
@@ -113,8 +126,29 @@ public class frmClientes extends javax.swing.JFrame {
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
-        
+        frmClientesBuscar buscar = new frmClientesBuscar();
+        panel1.add(buscar);
+        desktopSize = panel1.getSize();
+        FrameSize = buscar.getSize();
+        buscar.setLocation((desktopSize.width - FrameSize.width)/20, (desktopSize.height- FrameSize.height)/32);
+        btnUsuarioCrear.setVisible(false);
+        btnbuscar.setVisible(false);
+        btneditar.setVisible(false);
+        buscar.show();
     }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
+        // TODO add your handling code here:
+        frmClientesBuscar buscar = new frmClientesBuscar();
+        panel1.add(buscar);
+        desktopSize = panel1.getSize();
+        FrameSize = buscar.getSize();
+        buscar.setLocation((desktopSize.width - FrameSize.width)/150, (desktopSize.height- FrameSize.height)/150);
+        btnUsuarioCrear.setVisible(false);
+        btnbuscar.setVisible(false);
+        btneditar.setVisible(false);
+        buscar.show();
+    }//GEN-LAST:event_btneditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,8 +187,9 @@ public class frmClientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnUsuarioCrear;
-    private javax.swing.JButton btnbuscar;
+    public static javax.swing.JButton btnUsuarioCrear;
+    public static javax.swing.JButton btnbuscar;
+    private javax.swing.JButton btneditar;
     public static javax.swing.JDesktopPane panel1;
     // End of variables declaration//GEN-END:variables
 }
