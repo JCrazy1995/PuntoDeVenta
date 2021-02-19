@@ -5,6 +5,7 @@
  */
 package Usuarios;
 
+import clases.Metodos;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -20,10 +21,13 @@ public class frmClientes extends javax.swing.JFrame {
      */
     Dimension desktopSize;// variable para posicionar el jinternal
     Dimension FrameSize;// variable para posicionar el jinternal
+    public static  int valor =0;
+    public static boolean vezuna=false;//Variable para que solo se pinte una vez el modelo en la tabla
+     Metodos met = new Metodos ();//mandamos a llamar a metodos.
     public frmClientes() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,8 +123,7 @@ public class frmClientes extends javax.swing.JFrame {
         desktopSize = panel1.getSize();
         FrameSize = nuevos.getSize();
         nuevos.setLocation((desktopSize.width - FrameSize.width)/3, (desktopSize.height- FrameSize.height)/3);
-        btnUsuarioCrear.setVisible(false);
-        btnbuscar.setVisible(false);
+        met.ocultarbotones();
         nuevos.show();
     }//GEN-LAST:event_btnUsuarioCrearActionPerformed
 
@@ -130,24 +133,49 @@ public class frmClientes extends javax.swing.JFrame {
         panel1.add(buscar);
         desktopSize = panel1.getSize();
         FrameSize = buscar.getSize();
-        buscar.setLocation((desktopSize.width - FrameSize.width)/20, (desktopSize.height- FrameSize.height)/32);
-        btnUsuarioCrear.setVisible(false);
-        btnbuscar.setVisible(false);
-        btneditar.setVisible(false);
+        buscar.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        met.ocultarbotones();
+        frmClientesBuscar.inicializador=1;
+        if (vezuna==false)
+        {
+              met.ModeloTabla();
+              met.BuscarClientes();
+        }
+        else
+        {
+              frmClientesBuscar.tblClientesBuscar.setModel(frmClientesBuscar.tablaBuscar);
+              met.TamañoColumnas();
+              met.BuscarClientes();
+              
+        }
+               
         buscar.show();
+        
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
-        // TODO add your handling code here:
+//         TODO add your handling code here:
         frmClientesBuscar buscar = new frmClientesBuscar();
         panel1.add(buscar);
         desktopSize = panel1.getSize();
         FrameSize = buscar.getSize();
         buscar.setLocation((desktopSize.width - FrameSize.width)/150, (desktopSize.height- FrameSize.height)/150);
-        btnUsuarioCrear.setVisible(false);
-        btnbuscar.setVisible(false);
-        btneditar.setVisible(false);
+        met.ocultarbotones();
+        frmClientesBuscar.inicializador=2;
+         if (vezuna==false)
+        {
+              met.ModeloTabla();
+              met.BuscarClientes();
+        }
+        else
+        {
+              frmClientesBuscar.tblClientesBuscar.setModel(frmClientesBuscar.tablaBuscar);
+              met.TamañoColumnas();
+              met.BuscarClientes();
+        }
+               
         buscar.show();
+       
     }//GEN-LAST:event_btneditarActionPerformed
 
     /**
@@ -189,7 +217,7 @@ public class frmClientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnUsuarioCrear;
     public static javax.swing.JButton btnbuscar;
-    private javax.swing.JButton btneditar;
+    public static javax.swing.JButton btneditar;
     public static javax.swing.JDesktopPane panel1;
     // End of variables declaration//GEN-END:variables
 }

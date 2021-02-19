@@ -6,6 +6,7 @@
 package clases;
 
 
+import Usuarios.frmClientes;
 import Usuarios.frmClientesBuscar;
 import Usuarios.frmClientesEditar;
 import java.awt.event.KeyAdapter;
@@ -18,6 +19,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -81,18 +83,47 @@ public class Metodos {
         return lasid;
     }
     
+    public void ClientesEliminar(int idcliente)
+    {   try 
+        {
+            con = conectar.conectarMySQL();
+            stmt=con.createStatement();
+            PreparedStatement eliminar = con.prepareStatement("Update tblClientes set estatus='Eliminado' where idCliente =?");
+            eliminar.setInt(1, idcliente);
+            eliminar.executeUpdate();
+            eliminar.close();
+        }
+        catch (SQLException e) 
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+     
+        
+    }
+    
     
     public void BuscarClientes(){
         try {
             con = conectar.conectarMySQL();
             stmt =con.createStatement();
-            rs= stmt.executeQuery("Select * from tblClientes ;");
+            rs= stmt.executeQuery("Select * from tblClientes where estatus ='Activo';");
+            String tipopago;
             while(rs.next())
             {
                 filas[0] = rs.getString(1);
                 filas[1] = rs.getString(2);
                 filas[2] = rs.getString(3);
-                filas[3] = rs.getString(4);
+                if(rs.getInt(4)==1)
+                {
+                    tipopago ="Contado";
+                }
+                else
+                {
+                    tipopago = "Crédito";
+                }
+                
+                filas[3] = tipopago;
                 filas[4] = rs.getString(5);
                 filas[5] = rs.getString(6);
                 filas[6] = rs.getString(7);
@@ -126,7 +157,7 @@ public class Metodos {
         frmClientesEditar.lblidCliente.setText(id);
         frmClientesEditar.txtNombreCliente.setText(nombre);
         frmClientesEditar.txtTelefonoCliente.setText(telefono);
-        if("1".equals(tpago))
+        if("Contado".equals(tpago))
         {
            frmClientesEditar.cmbTipoPago.setSelectedIndex(0);
         }
@@ -169,6 +200,51 @@ public class Metodos {
         
     }
          
+     public static void ModeloTabla(){
+    
+    frmClientesBuscar.tablaBuscar.addColumn("N°cliente");
+    frmClientesBuscar.tablaBuscar.addColumn("Nombre");
+    frmClientesBuscar.tablaBuscar.addColumn("Telefono");
+    frmClientesBuscar.tablaBuscar.addColumn("Pago");
+    frmClientesBuscar.tablaBuscar.addColumn("Días");
+    frmClientesBuscar.tablaBuscar.addColumn("Colonia");
+    frmClientesBuscar.tablaBuscar.addColumn("Calle");
+    frmClientesBuscar.tablaBuscar.addColumn("# Exterior");
+    frmClientesBuscar.tablaBuscar.addColumn("# Interior");
+    frmClientesBuscar.tablaBuscar.addColumn("CP");
+    frmClientesBuscar.tblClientesBuscar.setModel(frmClientesBuscar.tablaBuscar);
+    frmClientes.vezuna=true;
+    TamañoColumnas();
+    }
+    
+     public static void TamañoColumnas()
+     {
+            TableColumnModel ModeloColumnas = frmClientesBuscar.tblClientesBuscar.getColumnModel();
+            ModeloColumnas.getColumn(0).setPreferredWidth(70);
+            ModeloColumnas.getColumn(1).setPreferredWidth(200);
+            ModeloColumnas.getColumn(2).setPreferredWidth(90);
+            ModeloColumnas.getColumn(3).setPreferredWidth(60);
+            ModeloColumnas.getColumn(4).setPreferredWidth(40);
+            ModeloColumnas.getColumn(5).setPreferredWidth(120);
+            ModeloColumnas.getColumn(6).setPreferredWidth(120);
+            ModeloColumnas.getColumn(7).setPreferredWidth(70);
+            ModeloColumnas.getColumn(8).setPreferredWidth(70);
+            ModeloColumnas.getColumn(9).setPreferredWidth(50);
+     }
+    public void ocultarbotones()
+    {
+         frmClientes.btnUsuarioCrear.setVisible(false);
+         frmClientes.btnbuscar.setVisible(false);
+         frmClientes.btneditar.setVisible(false);
+    }
+    public void mostrarbbotones()
+    {
+         frmClientes.btnUsuarioCrear.setVisible(true);
+         frmClientes.btnbuscar.setVisible(true);
+         frmClientes.btneditar.setVisible(true);
+    }
+    
+    
     public void limpiartablaclientesbuscarclientes() 
         {
 

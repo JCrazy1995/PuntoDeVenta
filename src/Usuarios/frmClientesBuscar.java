@@ -7,14 +7,9 @@ package Usuarios;
 
 import clases.Metodos;
 import java.awt.Dimension;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -36,61 +31,41 @@ public final class frmClientesBuscar extends javax.swing.JInternalFrame {
     
      Dimension desktopSize;
      Dimension FrameSize;
-     
      public static int  contador=0;// Variable que hace que no se duplique el jframe de editar clientes
-     
+     public static int  inicializador ;//variable para saber si es buscar o editar
     
      public frmClientesBuscar() {
      initComponents();
-     ModeloTabla();
-     met.BuscarClientes();
      click();
-     
-      
     }
-     
-  public  void ModeloTabla(){
    
-    tablaBuscar.addColumn("N°cliente");
-    tablaBuscar.addColumn("Nombre");
-    tablaBuscar.addColumn("Telefono");
-    tablaBuscar.addColumn("Pago");
-    tablaBuscar.addColumn("Días");
-    tablaBuscar.addColumn("Colonia");
-    tablaBuscar.addColumn("Calle");
-    tablaBuscar.addColumn("# Exterior");
-    tablaBuscar.addColumn("# Interior");
-    tablaBuscar.addColumn("CP");
-    tblClientesBuscar.setModel(tablaBuscar);
-    TableColumnModel ModeloColumnas = tblClientesBuscar.getColumnModel();
-    ModeloColumnas.getColumn(0).setPreferredWidth(70);
-    ModeloColumnas.getColumn(1).setPreferredWidth(230);
-    ModeloColumnas.getColumn(2).setPreferredWidth(90);
-    ModeloColumnas.getColumn(3).setPreferredWidth(40);
-    ModeloColumnas.getColumn(4).setPreferredWidth(40);
-    ModeloColumnas.getColumn(5).setPreferredWidth(120);
-    ModeloColumnas.getColumn(6).setPreferredWidth(120);
-    ModeloColumnas.getColumn(7).setPreferredWidth(70);
-    ModeloColumnas.getColumn(8).setPreferredWidth(70);
-    ModeloColumnas.getColumn(9).setPreferredWidth(50);
-  
-    }
-    
-         
     void click()
     {
         tblClientesBuscar.addMouseListener(new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent Mouse_evt){
             if(Mouse_evt.getClickCount()==2){
-                enviardatos();
-                met.buscarclientetabla("");
+               
+                if(inicializador==2)//Abrir Editar
+                {    if(contador>=1)//No abre dos veces el formulario frmClientes Editar.
+                    {
+                    }
+                    else
+                    {//abra el formulario de editar.
+                         enviardatos();
+                        met.buscarclientetabla("");
+                    }
+                }
+                else
+                {
+                    //No ejecuta el doble clic
+                }
             }  
         }
         });
     }
     
-   
+
     void enviardatos()
     {
         frmClientesEditar editar = new frmClientesEditar();
@@ -105,6 +80,7 @@ public final class frmClientesBuscar extends javax.swing.JInternalFrame {
         
     }
       
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,7 +94,8 @@ public final class frmClientesBuscar extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         txtClientesBuscar = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tblClientesBuscar = new javax.swing.JTable();
 
         jLabel1.setText("Nombre");
@@ -134,40 +111,56 @@ public final class frmClientesBuscar extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/regresar.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         tblClientesBuscar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane2.setViewportView(tblClientesBuscar);
+        jScrollPane1.setViewportView(tblClientesBuscar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtClientesBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(533, Short.MAX_VALUE))
-            .addComponent(jScrollPane2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel1)
+                        .addGap(26, 26, 26)
+                        .addComponent(txtClientesBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtClientesBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtClientesBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -184,10 +177,21 @@ public final class frmClientesBuscar extends javax.swing.JInternalFrame {
        met.buscarclientetabla(cliente);
     }//GEN-LAST:event_txtClientesBuscarKeyReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    
+        frmClientes.valor =1;
+        this.dispose();
+        met.mostrarbbotones();
+        met.buscarclientetabla("");
+        met.limpiartablaclientesbuscarclientes();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tblClientesBuscar;
     public static javax.swing.JTextField txtClientesBuscar;
     // End of variables declaration//GEN-END:variables

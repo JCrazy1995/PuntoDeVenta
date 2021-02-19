@@ -6,7 +6,7 @@
 package Usuarios;
 
 import clases.Metodos;
-import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author usuario
@@ -16,10 +16,16 @@ public class frmClientesEditar extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmClientesEditar
      */
-    public frmClientesEditar() {
+    char validarnumeros;//Para el evento keyEvent y es para validar si son enteros en lo que recibio
+    String cantidadnumeros;//Se usa para ver cuantos numeros recibio del Telefono
+    String combobox;//Para saber que item esta selecionado 
+    Metodos met = new Metodos();//inicializas la clase metodos
+    public frmClientesEditar() 
+    {
         initComponents();
+        txtDiasCreditoCliente.setEditable(false);
     }
- void cerrarventana()
+    void cerrarventana()
     {
         frmClientesBuscar.contador = 0;
         frmClientesBuscar.tblClientesBuscar.setEnabled(true);
@@ -57,24 +63,52 @@ public class frmClientesEditar extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
 
         jLabel8.setText("Calle");
+
+        txtTelefonoCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoClienteKeyTyped(evt);
+            }
+        });
 
         txtExterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtExteriorActionPerformed(evt);
             }
         });
+        txtExterior.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtExteriorKeyTyped(evt);
+            }
+        });
 
         cmbTipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Contado", "Crèdito" }));
+        cmbTipoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoPagoActionPerformed(evt);
+            }
+        });
 
         lblidCliente.setText("Mostrar id");
+
+        txtCP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCPKeyTyped(evt);
+            }
+        });
 
         txtDiasCreditoCliente.setText("0");
         txtDiasCreditoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDiasCreditoClienteActionPerformed(evt);
+            }
+        });
+        txtDiasCreditoCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDiasCreditoClienteKeyTyped(evt);
             }
         });
 
@@ -156,10 +190,17 @@ public class frmClientesEditar extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nùmero de cliente");
 
-        jButton1.setText("Actualizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
             }
         });
 
@@ -173,48 +214,55 @@ public class frmClientesEditar extends javax.swing.JInternalFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(60, 60, 60)
+                        .addComponent(btnActualizar)
+                        .addGap(60, 60, 60)
+                        .addComponent(btnEliminar)))
+                .addContainerGap(150, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(12, 12, 12)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel1)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel6)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(7, 7, 7)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel8))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jButton1)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addGap(7, 7, 7)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel2)
-                        .addGap(27, 27, 27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel5)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel8)
@@ -225,9 +273,11 @@ public class frmClientesEditar extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel10)
                         .addGap(24, 24, 24)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnEliminar))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -247,7 +297,7 @@ public class frmClientesEditar extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         String nombre, telefono, colonia, calle, interior;
         int idCliente,tpago, diasCredito, exterior, cp;
@@ -257,26 +307,83 @@ public class frmClientesEditar extends javax.swing.JInternalFrame {
         calle=txtCalle.getText();
         interior=txtInterior.getText();
         idCliente=Integer.parseInt(lblidCliente.getText());
-        if(cmbTipoPago.getSelectedItem()=="Credito"){
-            tpago=2;
+        if(cmbTipoPago.getSelectedItem()=="Contado"){
+            tpago=1;
         }
         else{
-            tpago=1;
+            tpago=2;
         }
         diasCredito=Integer.parseInt(txtDiasCreditoCliente.getText());
         exterior=Integer.parseInt(txtExterior.getText());
         cp=Integer.parseInt(txtCP.getText());
-        Metodos me=new Metodos();
-        me.limpiartablaclientesbuscarclientes();
-        me.ClientesActualizar(idCliente,nombre, telefono, tpago, diasCredito, colonia, calle, exterior, interior, cp);
-        me.BuscarClientes();
+       
+        met.limpiartablaclientesbuscarclientes();
+        met.ClientesActualizar(idCliente,nombre, telefono, tpago, diasCredito, colonia, calle, exterior, interior, cp);
+        met.BuscarClientes();
         cerrarventana();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void txtTelefonoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoClienteKeyTyped
+        // TODO add your handling code here:
+         validarnumeros = evt.getKeyChar();
+        if((validarnumeros<'0' || validarnumeros>'9'))  evt.consume();
+        cantidadnumeros= txtTelefonoCliente.getText();
+        if((cantidadnumeros.length()>9)  ) evt.consume();
+        
+    }//GEN-LAST:event_txtTelefonoClienteKeyTyped
+
+    private void cmbTipoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoPagoActionPerformed
+        // TODO add your handling code here:
+        combobox = cmbTipoPago.getSelectedItem().toString();
+        if(!"Contado".equals(combobox))
+        {
+            txtDiasCreditoCliente.setEditable(true);
+            txtDiasCreditoCliente.requestFocus();
+        }
+        else
+        {
+            txtDiasCreditoCliente.setEditable(false);
+            txtDiasCreditoCliente.setText(0+"");
+            txtDiasCreditoCliente.requestFocus();
+        }
+    }//GEN-LAST:event_cmbTipoPagoActionPerformed
+
+    private void txtDiasCreditoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDiasCreditoClienteKeyTyped
+        // TODO add your handling code here:
+         validarnumeros = evt.getKeyChar();
+        if((validarnumeros<'0' || validarnumeros>'9'))  evt.consume();
+        
+    }//GEN-LAST:event_txtDiasCreditoClienteKeyTyped
+
+    private void txtExteriorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtExteriorKeyTyped
+        // TODO add your handling code here:
+          validarnumeros = evt.getKeyChar();
+        if((validarnumeros<'0' || validarnumeros>'9'))  evt.consume();
+
+    }//GEN-LAST:event_txtExteriorKeyTyped
+
+    private void txtCPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPKeyTyped
+        // TODO add your handling code here:
+         validarnumeros = evt.getKeyChar();
+        if((validarnumeros<'0' || validarnumeros>'9'))  evt.consume();
+
+    }//GEN-LAST:event_txtCPKeyTyped
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        int idcliente;
+        idcliente= Integer.parseInt(lblidCliente.getText());
+        met.ClientesEliminar(idcliente);
+        met.limpiartablaclientesbuscarclientes();
+        met.BuscarClientes();
+        cerrarventana();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnEliminar;
     public static javax.swing.JComboBox<String> cmbTipoPago;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
