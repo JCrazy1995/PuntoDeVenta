@@ -5,6 +5,7 @@
  */
 package puntodeventa;
 
+import Articulos.frmArticulos;
 import Usuarios.frmClientes;
 
 /**
@@ -31,6 +32,7 @@ public class frmMenu extends javax.swing.JFrame {
 
         btnUsuarios = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnArticulos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -51,15 +53,27 @@ public class frmMenu extends javax.swing.JFrame {
             }
         });
 
+        btnArticulos.setText("Articulos");
+        btnArticulos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArticulosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(btnUsuarios)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(btnUsuarios)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(btnArticulos)))
                 .addContainerGap(430, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -72,7 +86,9 @@ public class frmMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(jLabel1)))
-                .addContainerGap(335, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(btnArticulos)
+                .addContainerGap(267, Short.MAX_VALUE))
         );
 
         pack();
@@ -94,6 +110,13 @@ public class frmMenu extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void btnArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArticulosActionPerformed
+        // TODO add your handling code here:
+        frmArticulos articulos = new frmArticulos();
+        articulos.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnArticulosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,6 +154,7 @@ public class frmMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnArticulos;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables

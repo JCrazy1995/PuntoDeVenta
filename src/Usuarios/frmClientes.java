@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 /**
  *
  * @author carlo
@@ -50,6 +51,7 @@ public class frmClientes extends javax.swing.JFrame {
         btneditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         btnUsuarioCrear.setText("Crear");
         btnUsuarioCrear.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +99,7 @@ public class frmClientes extends javax.swing.JFrame {
                     .addComponent(btnUsuarioCrear)
                     .addComponent(btnbuscar)
                     .addComponent(btneditar))
-                .addContainerGap(416, Short.MAX_VALUE))
+                .addContainerGap(405, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,6 +111,7 @@ public class frmClientes extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(panel1)
                 .addContainerGap())
         );

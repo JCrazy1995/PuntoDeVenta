@@ -28,11 +28,11 @@ import javax.swing.table.TableRowSorter;
  */
 public class Metodos {
     Connection con = null;
-     static ResultSet rs=null;
+    static ResultSet rs=null;
     private Statement stmt=null;
     conexion conectar = new conexion();
     Object filas[] = new Object[10];
-     TableRowSorter trs; // Variable Para lo del filtrado de la busqueda
+    TableRowSorter trs; // Variable Para lo del filtrado de la busqueda
 
     public void guardarClientes(String Nombre, String telefono, int tipoPago, int dias,String colonia, String calle, int Numero, String interior, int cp){
         con = conectar.conectarMySQL();
@@ -200,22 +200,23 @@ public class Metodos {
         
     }
          
-     public static void ModeloTabla(){
+     public static void ModeloTabla()
+     {
     
-    frmClientesBuscar.tablaBuscar.addColumn("N°cliente");
-    frmClientesBuscar.tablaBuscar.addColumn("Nombre");
-    frmClientesBuscar.tablaBuscar.addColumn("Telefono");
-    frmClientesBuscar.tablaBuscar.addColumn("Pago");
-    frmClientesBuscar.tablaBuscar.addColumn("Días");
-    frmClientesBuscar.tablaBuscar.addColumn("Colonia");
-    frmClientesBuscar.tablaBuscar.addColumn("Calle");
-    frmClientesBuscar.tablaBuscar.addColumn("# Exterior");
-    frmClientesBuscar.tablaBuscar.addColumn("# Interior");
-    frmClientesBuscar.tablaBuscar.addColumn("CP");
-    frmClientesBuscar.tblClientesBuscar.setModel(frmClientesBuscar.tablaBuscar);
-    frmClientes.vezuna=true;
-    TamañoColumnas();
-    }
+            frmClientesBuscar.tablaBuscar.addColumn("N°cliente");
+            frmClientesBuscar.tablaBuscar.addColumn("Nombre");
+            frmClientesBuscar.tablaBuscar.addColumn("Telefono");
+            frmClientesBuscar.tablaBuscar.addColumn("Pago");
+            frmClientesBuscar.tablaBuscar.addColumn("Días");
+            frmClientesBuscar.tablaBuscar.addColumn("Colonia");
+            frmClientesBuscar.tablaBuscar.addColumn("Calle");
+            frmClientesBuscar.tablaBuscar.addColumn("# Exterior");
+            frmClientesBuscar.tablaBuscar.addColumn("# Interior");
+            frmClientesBuscar.tablaBuscar.addColumn("CP");
+            frmClientesBuscar.tblClientesBuscar.setModel(frmClientesBuscar.tablaBuscar);
+            frmClientes.vezuna=true;
+            TamañoColumnas();
+     }
     
      public static void TamañoColumnas()
      {

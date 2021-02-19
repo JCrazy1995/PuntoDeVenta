@@ -28,7 +28,7 @@ public final class frmClientesBuscar extends javax.swing.JInternalFrame {
         
     };
      Metodos met= new Metodos();/// inicializa la clase de metodos
-    
+     frmClientesEditar editar = new frmClientesEditar();
      Dimension desktopSize;
      Dimension FrameSize;
      public static int  contador=0;// Variable que hace que no se duplique el jframe de editar clientes
@@ -68,7 +68,7 @@ public final class frmClientesBuscar extends javax.swing.JInternalFrame {
 
     void enviardatos()
     {
-        frmClientesEditar editar = new frmClientesEditar();
+        
         frmClientes.panel1.add(editar);
         desktopSize = frmClientes.panel1.getSize();
         FrameSize = editar.getSize();
