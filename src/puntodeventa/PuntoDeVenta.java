@@ -18,7 +18,7 @@ public class PuntoDeVenta {
         // TODO code application logic here
         frmMenu menu=new frmMenu();
         menu.setVisible(true);
-        menu.setExtendedState(frmMenu.MAXIMIZED_BOTH);
+        
     }
     
 }

@@ -5,10 +5,12 @@
  */
 package Usuarios;
 
+import Articulos.frmArticulosBuscar;
 import clases.Metodos;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
@@ -27,6 +29,15 @@ public class frmClientes extends javax.swing.JFrame {
      Metodos met = new Metodos ();//mandamos a llamar a metodos.
     public frmClientes() {
         initComponents();
+        tamañopantalla();
+    }
+    
+     public void tamañopantalla()
+    {
+        Toolkit t = Toolkit.getDefaultToolkit();
+       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+       this.setSize(new Dimension(screenSize.width, screenSize.height));
+        panel2.setSize(new Dimension(screenSize.width, screenSize.height));
     }
     
     /**
@@ -38,6 +49,7 @@ public class frmClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panel2 = new javax.swing.JDesktopPane();
         ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/arrow.jpg"));
         Image image = icon.getImage();
         panel1 = new javax.swing.JDesktopPane(){
@@ -49,9 +61,13 @@ public class frmClientes extends javax.swing.JFrame {
         btnUsuarioCrear = new javax.swing.JButton();
         btnbuscar = new javax.swing.JButton();
         btneditar = new javax.swing.JButton();
+        lblcerrar = new javax.swing.JLabel();
+        lblMinimizar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+
+        panel2.setBackground(new java.awt.Color(171, 229, 234));
 
         btnUsuarioCrear.setText("Crear");
         btnUsuarioCrear.addActionListener(new java.awt.event.ActionListener() {
@@ -89,31 +105,70 @@ public class frmClientes extends javax.swing.JFrame {
                 .addComponent(btnbuscar)
                 .addGap(29, 29, 29)
                 .addComponent(btneditar)
-                .addContainerGap(535, Short.MAX_VALUE))
+                .addContainerGap(445, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(82, 82, 82)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUsuarioCrear)
                     .addComponent(btnbuscar)
                     .addComponent(btneditar))
-                .addContainerGap(405, Short.MAX_VALUE))
+                .addContainerGap(374, Short.MAX_VALUE))
+        );
+
+        lblcerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar.png"))); // NOI18N
+        lblcerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblcerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblcerrarMouseClicked(evt);
+            }
+        });
+
+        lblMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/minimizar.png"))); // NOI18N
+        lblMinimizar.setToolTipText("Minimizar");
+        lblMinimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblMinimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblMinimizarMouseClicked(evt);
+            }
+        });
+
+        panel2.setLayer(panel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panel2.setLayer(lblcerrar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panel2.setLayer(lblMinimizar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
+        panel2.setLayout(panel2Layout);
+        panel2Layout.setHorizontalGroup(
+            panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblMinimizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblcerrar))
+            .addComponent(panel1)
+        );
+        panel2Layout.setVerticalGroup(
+            panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel2Layout.createSequentialGroup()
+                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblcerrar)
+                    .addComponent(lblMinimizar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel1))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1)
+            .addComponent(panel2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel1)
-                .addContainerGap())
+            .addComponent(panel2)
         );
 
         pack();
@@ -178,8 +233,20 @@ public class frmClientes extends javax.swing.JFrame {
         }
                
         buscar.show();
+
+       
        
     }//GEN-LAST:event_btneditarActionPerformed
+
+    private void lblcerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblcerrarMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_lblcerrarMouseClicked
+
+    private void lblMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizarMouseClicked
+        // TODO add your handling code here:
+          this.setExtendedState(this.CROSSHAIR_CURSOR);
+    }//GEN-LAST:event_lblMinimizarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -221,6 +288,9 @@ public class frmClientes extends javax.swing.JFrame {
     public static javax.swing.JButton btnUsuarioCrear;
     public static javax.swing.JButton btnbuscar;
     public static javax.swing.JButton btneditar;
+    private javax.swing.JLabel lblMinimizar;
+    private javax.swing.JLabel lblcerrar;
     public static javax.swing.JDesktopPane panel1;
+    private javax.swing.JDesktopPane panel2;
     // End of variables declaration//GEN-END:variables
 }

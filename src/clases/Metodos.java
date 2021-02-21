@@ -248,13 +248,7 @@ public class Metodos {
     
     public void limpiartablaclientesbuscarclientes() 
         {
-
-            DefaultTableModel tb = (DefaultTableModel) frmClientesBuscar.tblClientesBuscar.getModel();
-            int a = frmClientesBuscar.tblClientesBuscar.getRowCount() - 1;
-            for (int i = a; i >= 0; i--) 
-            {
-                tb.removeRow(tb.getRowCount() - 1);
-            }
+                frmClientesBuscar.tablaBuscar.setRowCount(0);
         }
     
      public void buscarclientetabla(String cliente){

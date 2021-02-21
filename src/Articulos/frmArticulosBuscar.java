@@ -68,9 +68,15 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
     
     public void enviardatos()
     {
-       
+        
+        frmArticulosEditar editar = new frmArticulosEditar();
+        frmArticulos3.panel1.add(editar);
+        desktopSize = frmArticulos3.panel1.getSize();
+        FrameSize = editar.getSize();
+        editar.setLocation((desktopSize.width - FrameSize.width)/1, (desktopSize.height- FrameSize.height)/10);
+        editar.show();
         contador=contador+1;
-        //met.ArticulosEditarPasar();
+        met.ArticulosEditarPasar();
     }
     
     /**
@@ -83,13 +89,18 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtArticulosBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblArticulosbuscar = new javax.swing.JTable();
         lblregresar = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         jLabel1.setText("Nombre:");
+
+        txtArticulosBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtArticulosBuscarKeyTyped(evt);
+            }
+        });
 
         tblArticulosbuscar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,13 +123,6 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,30 +133,25 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
                 .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblregresar)
-                        .addGap(159, 159, 159)
-                        .addComponent(jButton1))
+                    .addComponent(lblregresar)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(160, 160, 160)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtArticulosBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                .addComponent(lblregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtArticulosBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,26 +162,24 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
          //met.limpiartabla();
          modelotablaArticulos.setRowCount(0);
          this.dispose();
+         met.mostrarbotones();
        
     }//GEN-LAST:event_lblregresarMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void txtArticulosBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtArticulosBuscarKeyTyped
         // TODO add your handling code here:
-        frmArticulosEditar editar = new frmArticulosEditar();
-        frmArticulos.panelarticulos.add(editar);
-        desktopSize = frmArticulos.panelarticulos.getSize();
-        FrameSize = editar.getSize();
-        editar.setLocation((desktopSize.width - FrameSize.width)/1, (desktopSize.height- FrameSize.height)/120);
-        editar.show();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String articulo;
+        articulo = txtArticulosBuscar.getText();
+        met.buscartabla(articulo);
+        
+    }//GEN-LAST:event_txtArticulosBuscarKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblregresar;
     public static javax.swing.JTable tblArticulosbuscar;
+    public static javax.swing.JTextField txtArticulosBuscar;
     // End of variables declaration//GEN-END:variables
 }

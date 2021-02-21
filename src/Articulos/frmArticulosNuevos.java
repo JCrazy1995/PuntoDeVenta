@@ -65,6 +65,7 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
         txtPrecioCompra = new javax.swing.JTextField();
         cmbEmpaquetado = new javax.swing.JComboBox<>();
         btnArticulosAgregar = new javax.swing.JButton();
+        lblregresar = new javax.swing.JLabel();
 
         jLabel1.setText("N° Articulo:");
 
@@ -198,6 +199,15 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
             }
         });
 
+        lblregresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/regresar.png"))); // NOI18N
+        lblregresar.setToolTipText("Regresar");
+        lblregresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblregresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblregresarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,18 +221,20 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(112, 112, 112)
-                        .addComponent(btnArticulosAgregar)))
+                        .addComponent(btnArticulosAgregar))
+                    .addComponent(lblregresar))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addComponent(lblregresar)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnArticulosAgregar)
                 .addGap(12, 12, 12))
@@ -299,6 +311,12 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnArticulosAgregarKeyPressed
 
+    private void lblregresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblregresarMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        met.mostrarbotones();
+    }//GEN-LAST:event_lblregresarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArticulosAgregar;
@@ -311,6 +329,7 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JLabel lblidArticulo;
+    private javax.swing.JLabel lblregresar;
     private javax.swing.JTextField txtNombreArticulo;
     private javax.swing.JTextField txtPrecioArticulo;
     private javax.swing.JTextField txtPrecioCompra;

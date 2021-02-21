@@ -5,19 +5,19 @@
  */
 package clases;
 
-import Articulos.frmArticulos;
-import static Articulos.frmArticulos.vezuna;
+import Articulos.frmArticulos3;
 import Articulos.frmArticulosBuscar;
 import Articulos.frmArticulosEditar;
-import Articulos.frmArticulosNuevos;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
@@ -35,7 +35,7 @@ public class MetodosArticulos {
     TableRowSorter trs; // Variable Para lo del filtrado de la busqueda
     
     public void ArticulosCrear(String nombre,float precio,float preciocompra,String empaquetado)
-    {   frmArticulos articulos = new frmArticulos();
+    {  
         try 
         {
             con=conectar.conectarMySQL();
@@ -51,19 +51,19 @@ public class MetodosArticulos {
             InsertarArticulos.setString(7, "Activo");
             InsertarArticulos.execute();
             InsertarArticulos.close();
-            JOptionPane.showMessageDialog(articulos, "Registro Exitoso");
+            JOptionPane.showMessageDialog(null, "Registro Exitoso");
             
         } 
         catch (SQLException e)
         {
-            JOptionPane.showMessageDialog(articulos, e);
+            JOptionPane.showMessageDialog(null, e);
         }
 
     }
     
     public int UltimoIdArticulo()
     {   int id=0;
-        frmArticulos articulos = new frmArticulos();
+       
         try 
         {
             con=conectar.conectarMySQL();
@@ -77,9 +77,53 @@ public class MetodosArticulos {
         }
         catch (SQLException e) 
         {
-            JOptionPane.showMessageDialog(articulos, e);
+            JOptionPane.showMessageDialog(null, e);
         }
         return id;
+    }
+    
+    
+    public void Actualizar(int id,String nombre,float precio,float preciocompra,String empaquetado)
+    {
+        try 
+        {
+            con=conectar.conectarMySQL();
+            stmt=con.createStatement();
+            PreparedStatement actualizar = con.prepareStatement("update tblarticulos set nombre=?,precio_venta=?"
+                    + ",precio_compra=?,empaquetado=? where idArticulos=?");
+            actualizar.setString(1, nombre);
+            actualizar.setFloat(2, precio);
+            actualizar.setFloat(3, preciocompra);
+            actualizar.setString(4, empaquetado);
+            actualizar.setInt(5, id);
+            actualizar.executeUpdate();
+            actualizar.close();
+            JOptionPane.showMessageDialog(null, "Acutalizado Correctamente");
+        } 
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+    }
+    
+    
+    public void elimiar(int id)
+    {
+        try 
+        {
+            con=conectar.conectarMySQL();
+            stmt=con.createStatement();
+            PreparedStatement eliminar = con.prepareStatement("update tblarticulos set estatus='Cancelado' where idArticulos =?");
+            eliminar.setInt(1, id);
+            eliminar.executeUpdate();
+            eliminar.close();
+            JOptionPane.showMessageDialog(null, "Articulo Eliminado");
+        } 
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
     
     
@@ -92,7 +136,7 @@ public class MetodosArticulos {
         frmArticulosBuscar.modelotablaArticulos.addColumn("P.Compra");
         frmArticulosBuscar.modelotablaArticulos.addColumn("Empaquetado");  
         frmArticulosBuscar.tblArticulosbuscar.setModel(frmArticulosBuscar.modelotablaArticulos);
-        frmArticulos.vezuna = true;
+        frmArticulos3.vezuna = true;
         tamañocolumnas();
         acomodofilas();
     }
@@ -123,7 +167,7 @@ public class MetodosArticulos {
     
     public void ArticulosBuscar()
     { 
-        frmArticulos articulos = new frmArticulos();
+      
         try 
         {
             con=conectar.conectarMySQL();
@@ -142,7 +186,7 @@ public class MetodosArticulos {
         } 
         catch (SQLException e) 
         {
-            JOptionPane.showMessageDialog(articulos, e);
+            JOptionPane.showMessageDialog(null, e);
         }
     }
     
@@ -160,6 +204,36 @@ public class MetodosArticulos {
         frmArticulosEditar.txtNombreArticulo.setText(nombre);
         frmArticulosEditar.txtPrecioArticulo.setText(precio);
         frmArticulosEditar.txtPrecioCompra.setText(preciocompra);
+        buscartabla("");
+        frmArticulosBuscar.txtArticulosBuscar.setText("");
         //frmArticulosEditar.cmbEmpaquetado.setSelectedItem(empaquetado);
     }
+    
+    public void ocultarbotones()
+    {
+        frmArticulos3.btnArticulosBuscar.setVisible(false);
+        frmArticulos3.btnArticulosEditar.setVisible(false);
+        frmArticulos3.btnNuevo.setVisible(false);
+    }
+    
+    public void mostrarbotones()
+    {
+        frmArticulos3.btnArticulosBuscar.setVisible(true);
+        frmArticulos3.btnArticulosEditar.setVisible(true);
+        frmArticulos3.btnNuevo.setVisible(true);
+    }
+    
+    public void buscartabla(String Articulo)
+    {
+            frmArticulosBuscar.txtArticulosBuscar.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent ke){
+                trs.setRowFilter(RowFilter.regexFilter("(?i)"+Articulo, 1));
+            }
+        });
+        trs = new TableRowSorter(frmArticulosBuscar.tblArticulosbuscar.getModel());
+        frmArticulosBuscar.tblArticulosbuscar.setRowSorter(trs);
+    }
+    
 }
