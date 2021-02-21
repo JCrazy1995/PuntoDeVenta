@@ -141,8 +141,7 @@ public class MetodosArticulos {
         acomodofilas();
     }
     
-    public void acomodofilas()
-    {
+    public void acomodofilas(){
         
         frmArticulosBuscar.tblArticulosbuscar.setRowHeight(30);    
         frmArticulosBuscar.tcr.setHorizontalAlignment(SwingConstants.CENTER);

@@ -20,6 +20,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 import proveedores.frmProveedorBuscar;
 import proveedores.frmProveedorEditar;
@@ -90,6 +92,8 @@ public class MetodosProveedores {
         frmProveedorBuscar.modeloTabla.addColumn("Días de credito");
         frmProveedorBuscar.tblBuscar.setModel(frmProveedorBuscar.modeloTabla);
         frmProveedores.vezuna = true;
+        tamañocolumnas();
+        acomodofilas();
     }
     
     public void mostrarbotones(){
@@ -169,6 +173,28 @@ public class MetodosProveedores {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+    
+      public void acomodofilas(){
+        
+        frmProveedorBuscar.tblBuscar.setRowHeight(30);    
+        frmProveedorBuscar.tcr.setHorizontalAlignment(SwingConstants.CENTER);
+        frmProveedorBuscar.tblBuscar.getColumnModel().getColumn(0).setCellRenderer( frmProveedorBuscar.tcr);
+        frmProveedorBuscar.tblBuscar.getColumnModel().getColumn(1).setCellRenderer( frmProveedorBuscar.tcr); 
+        frmProveedorBuscar.tblBuscar.getColumnModel().getColumn(2).setCellRenderer( frmProveedorBuscar.tcr); 
+        frmProveedorBuscar.tblBuscar.getColumnModel().getColumn(3).setCellRenderer( frmProveedorBuscar.tcr);  
+        frmProveedorBuscar.tblBuscar.getColumnModel().getColumn(4).setCellRenderer( frmProveedorBuscar.tcr); 
+        
+    }
+      
+      public void tamañocolumnas()
+    {
+         TableColumnModel ModeloColumnas =  frmProveedorBuscar.tblBuscar.getColumnModel();
+          ModeloColumnas.getColumn(0).setPreferredWidth(50);
+          ModeloColumnas.getColumn(1).setPreferredWidth(200);
+          ModeloColumnas.getColumn(2).setPreferredWidth(80);
+          ModeloColumnas.getColumn(3).setPreferredWidth(80);
+          ModeloColumnas.getColumn(4).setPreferredWidth(80);
     }
     
     

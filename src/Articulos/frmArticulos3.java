@@ -32,8 +32,7 @@ public class frmArticulos3 extends javax.swing.JFrame {
        
     }
 
-      public void tamañopantalla()
-    {
+      public void tamañopantalla(){
         Toolkit t = Toolkit.getDefaultToolkit();
        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
        this.setSize(new Dimension(screenSize.width, screenSize.height));

@@ -5,10 +5,12 @@
  */
 package proveedores;
 
+import clases.MetodosCompras;
 import clases.MetodosProveedores;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,7 +29,9 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
         }
         
     };
+    public static  DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
     MetodosProveedores met= new MetodosProveedores();
+    MetodosCompras metcompras= new MetodosCompras();
     public static int contador =0;
     public static int inicializador=0;
      Dimension desktopSize;
@@ -47,11 +51,17 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
                 {    if(contador>=1)//No abre dos veces el formulario frmClientes Editar.
                     {
                     }
+                
+                    
                     else
                     {//abra el formulario de editar.
                          enviar();
 //                        met.buscarclientetabla("");
                     }
+                }
+                else if(inicializador==3){ //Manda datos al formulario de Compras
+                    metcompras.regresarproveedor();
+                    cerrar();//cierra este interna
                 }
                 else
                 {
@@ -61,7 +71,10 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
         }
         });
     }
-    
+    public void cerrar(){
+        this.dispose();
+        modeloTabla.setRowCount(0);
+    }
     public void enviar(){
         frmProveedorEditar edi= new frmProveedorEditar();
         frmProveedores.panel2.add(edi);
@@ -70,7 +83,7 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
         edi.setLocation((desktopSize.width - FrameSize.width)/1, (desktopSize.height- FrameSize.height)/120);
         edi.show();
         contador=1;
-        btnPrueba.setEnabled(false);
+      
 //        lblRegresar.setEnabled(false);
         met.enviardatos();
     }
@@ -88,7 +101,6 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBuscar = new javax.swing.JTable();
         lblRegresar = new javax.swing.JLabel();
-        btnPrueba = new javax.swing.JButton();
 
         jLabel1.setText("Nombre");
 
@@ -126,47 +138,35 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
             }
         });
 
-        btnPrueba.setText("jButton1");
-        btnPrueba.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPruebaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(lblRegresar)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(45, 45, 45)
-                        .addComponent(txtBuscar)))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lblRegresar)
-                .addGap(18, 18, 18)
-                .addComponent(btnPrueba)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblRegresar)
-                    .addComponent(btnPrueba))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(lblRegresar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -174,8 +174,16 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
 
     private void lblRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegresarMouseClicked
         // TODO add your handling code here:
+       if(inicializador==3)
+       {
+           
+       }
+       else
+       {
+            met.mostrarbotones();
+       }
+       
         frmProveedorBuscar.modeloTabla.setRowCount(0);
-        met.mostrarbotones();
         this.dispose();
     }//GEN-LAST:event_lblRegresarMouseClicked
 
@@ -191,11 +199,6 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
         met.filtrarDatosTableBuscar(proveedor);
     }//GEN-LAST:event_txtBuscarKeyReleased
 
-    private void btnPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPruebaActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnPruebaActionPerformed
-
     private void lblRegresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegresarMousePressed
         // TODO add your handling code here:
 //        frmProveedorBuscar.modeloTabla.setRowCount(0);
@@ -204,7 +207,6 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPrueba;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblRegresar;

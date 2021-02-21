@@ -57,6 +57,11 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
                       enviardatos();
                     }
                 }
+                
+                else if(inicializador==3)
+                {
+                    
+                }
                 else
                 {
                     //No ejecuta el doble clic

@@ -7,6 +7,7 @@ package puntodeventa;
 
 
 import Articulos.frmArticulos3;
+import Compras.frmCompras;
 import Usuarios.frmClientes;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -57,6 +58,7 @@ public class frmMenu extends javax.swing.JFrame {
         btnUsuarios = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnProveedores = new javax.swing.JButton();
+        btnCompras = new javax.swing.JButton();
         lblminimizar = new javax.swing.JLabel();
         lblcerrar = new javax.swing.JLabel();
 
@@ -95,10 +97,18 @@ public class frmMenu extends javax.swing.JFrame {
             }
         });
 
+        btnCompras.setText("Compras");
+        btnCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprasActionPerformed(evt);
+            }
+        });
+
         panel1.setLayer(btnArticulos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(btnUsuarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(btnProveedores, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panel1.setLayer(btnCompras, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -118,8 +128,10 @@ public class frmMenu extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
-                        .addComponent(btnProveedores)))
-                .addContainerGap(406, Short.MAX_VALUE))
+                        .addComponent(btnProveedores)
+                        .addGap(63, 63, 63)
+                        .addComponent(btnCompras)))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +144,9 @@ public class frmMenu extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(btnArticulos)))
                 .addGap(35, 35, 35)
-                .addComponent(btnProveedores)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnProveedores)
+                    .addComponent(btnCompras))
                 .addContainerGap(248, Short.MAX_VALUE))
         );
 
@@ -234,6 +248,13 @@ public class frmMenu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
+    private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
+        // TODO add your handling code here:
+        frmCompras compras= new frmCompras();
+        compras.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnComprasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -271,6 +292,7 @@ public class frmMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArticulos;
+    private javax.swing.JButton btnCompras;
     private javax.swing.JButton btnProveedores;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JDesktopPane jDesktopPane1;

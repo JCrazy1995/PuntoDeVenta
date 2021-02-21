@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proveedores;
+package Compras;
 
-import clases.MetodosProveedores;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -17,27 +16,24 @@ import puntodeventa.frmMenu;
  *
  * @author usuario
  */
-public class frmProveedores extends javax.swing.JFrame {
+public class frmCompras extends javax.swing.JFrame {
 
     /**
-     * Creates new form frmProveedores
+     * Creates new form frmCompras
      */
     public Dimension desktopSize;// variable para posicionar el jinternal
     public Dimension FrameSize;// variable para posicionar el jinternal
-    MetodosProveedores met= new MetodosProveedores();
-    public static boolean vezuna = false;
-    int lasid ;//varible saber el ulrimo id ingresado en la bd
-    public frmProveedores() {
+    public frmCompras() {
         initComponents();
         tamañopantalla();
     }
-     public void tamañopantalla()
-    {
+    public void tamañopantalla(){
         Toolkit t = Toolkit.getDefaultToolkit();
        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
        this.setSize(new Dimension(screenSize.width, screenSize.height));
         panel2.setSize(new Dimension(screenSize.width, screenSize.height));
     }
+      
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,20 +44,16 @@ public class frmProveedores extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/nana.jpg"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("/Imagenes/wanda.jpg"));
         Image image2 = icon.getImage();
         panel2 = new javax.swing.JDesktopPane(){
-
             public void paintComponent(Graphics g){
                 g.drawImage(image2,0,0,getWidth(),getHeight(),this);
             }
-        }
 
-        ;
-        btnNuevo = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
+        };
         btnRegresar = new javax.swing.JButton();
+        btncomprasnuevas = new javax.swing.JButton();
         lblminimizar = new javax.swing.JLabel();
         lblcerrar = new javax.swing.JLabel();
 
@@ -70,67 +62,48 @@ public class frmProveedores extends javax.swing.JFrame {
 
         jDesktopPane1.setBackground(java.awt.Color.gray);
 
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        btnRegresar.setText("Regresar");
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/regresar.png"))); // NOI18N
+        btnRegresar.setToolTipText("Regresar");
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
             }
         });
 
-        panel2.setLayer(btnNuevo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panel2.setLayer(btnBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panel2.setLayer(btnEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        btncomprasnuevas.setText("Registrar");
+        btncomprasnuevas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncomprasnuevasActionPerformed(evt);
+            }
+        });
+
         panel2.setLayer(btnRegresar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panel2.setLayer(btncomprasnuevas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnEditar)
-                    .addComponent(btnRegresar))
-                .addContainerGap(504, Short.MAX_VALUE))
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(panel2Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(btncomprasnuevas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnNuevo)
-                .addGap(29, 29, 29)
-                .addComponent(btnBuscar)
-                .addGap(44, 44, 44)
-                .addComponent(btnEditar)
-                .addGap(18, 18, 18)
-                .addComponent(btnRegresar)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(btncomprasnuevas)
+                .addGap(0, 298, Short.MAX_VALUE))
         );
 
         lblminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/minimizar.png"))); // NOI18N
+        lblminimizar.setToolTipText("Minimizar");
         lblminimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblminimizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -155,19 +128,21 @@ public class frmProveedores extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblminimizar)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addGap(0, 474, Short.MAX_VALUE)
+                .addComponent(lblminimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblcerrar))
-            .addComponent(panel2)
+            .addComponent(panel2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblminimizar)
-                    .addComponent(lblcerrar))
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblcerrar)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(lblminimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel2))
         );
@@ -186,75 +161,33 @@ public class frmProveedores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lblminimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblminimizarMouseClicked
+        // TODO add your handling code here:
+
+        this.setExtendedState(this.CROSSHAIR_CURSOR);
+    }//GEN-LAST:event_lblminimizarMouseClicked
+
     private void lblcerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblcerrarMouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_lblcerrarMouseClicked
 
-    private void lblminimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblminimizarMouseClicked
-        // TODO add your handling code here:
-         this.setExtendedState(this.CROSSHAIR_CURSOR);
-    }//GEN-LAST:event_lblminimizarMouseClicked
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
-         lasid= met.ultimoid();
-        frmProveedorNuevo nuevo = new frmProveedorNuevo();
-       
-        panel2.add(nuevo);
-        desktopSize = panel2.getSize();
-        FrameSize = nuevo.getSize();
-        nuevo.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-        nuevo.show();
-        frmProveedorNuevo.lblidProvedor.setText(lasid+"");
-        met.ocultarbotones();
-    }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        frmProveedorBuscar buscar = new frmProveedorBuscar();
-        panel2.add(buscar);
-        desktopSize = panel2.getSize();
-        FrameSize = buscar.getSize();
-        buscar.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-        if(vezuna==false){
-             met.tablaModelo();
-        }
-        else{
-            frmProveedorBuscar.tblBuscar.setModel(frmProveedorBuscar.modeloTabla);
-        }
-        buscar.show();
-        met.mostrarProveedores();
-        met.ocultarbotones();
-       frmProveedorBuscar.inicializador=1;
-        
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        frmProveedorBuscar editar = new frmProveedorBuscar();
-        panel2.add(editar);
-        desktopSize = panel2.getSize();
-        FrameSize = editar.getSize();
-        editar.setLocation((desktopSize.width - FrameSize.width)/8, (desktopSize.height- FrameSize.height)/3);
-        if(vezuna==false){
-             met.tablaModelo();
-        }
-        else{
-            frmProveedorBuscar.tblBuscar.setModel(frmProveedorBuscar.modeloTabla);
-        }
-        editar.show();
-         met.mostrarProveedores();
-         met.ocultarbotones();
-        frmProveedorBuscar.inicializador=2;
-    }//GEN-LAST:event_btnEditarActionPerformed
-
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        frmMenu menu= new frmMenu();
+        frmMenu menu = new frmMenu();
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btncomprasnuevasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncomprasnuevasActionPerformed
+        // TODO add your handling code here:
+        frmComprasnuevas compras = new frmComprasnuevas();
+        panel2.add(compras);
+        desktopSize = panel2.getSize();
+        FrameSize = compras.getSize();
+        compras.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        compras.show();
+    }//GEN-LAST:event_btncomprasnuevasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,29 +206,27 @@ public class frmProveedores extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmProveedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmProveedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmProveedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmProveedores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmProveedores().setVisible(true);
+                new frmCompras().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JButton btnBuscar;
-    public static javax.swing.JButton btnEditar;
-    public static javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btncomprasnuevas;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel lblcerrar;
     private javax.swing.JLabel lblminimizar;
