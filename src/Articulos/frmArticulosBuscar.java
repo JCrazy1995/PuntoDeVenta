@@ -6,10 +6,12 @@
 package Articulos;
 
 import clases.MetodosArticulos;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JOptionPane;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,12 +34,20 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
     public static int  contador=0;// Variable que hace que no se duplique el jframe de editar articulos
     public static int  inicializador ;//variable para saber si es buscar o editar
     MetodosArticulos met = new MetodosArticulos();   
+    frmArticulosEditar editar2;
     Dimension desktopSize;
     Dimension FrameSize;
     public frmArticulosBuscar()  
     {
         initComponents();
         dobleclick();
+    }
+    
+    
+    public void bloquear(){
+        for( Component a: pnlBuscarArticulos.getComponents()){
+            a.setEnabled(false);
+        }
     }
     
     
@@ -55,6 +65,8 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
                     else
                     {//abra el formulario de editar.
                       enviardatos();
+                      bloquear();
+                      
                     }
                 }
                 
@@ -74,11 +86,13 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
     public void enviardatos()
     {
         
-        frmArticulosEditar editar = new frmArticulosEditar();
+        frmArticulosEditar editar;
+        editar = new frmArticulosEditar();
         frmArticulos3.panel1.add(editar);
         desktopSize = frmArticulos3.panel1.getSize();
         FrameSize = editar.getSize();
         editar.setLocation((desktopSize.width - FrameSize.width)/1, (desktopSize.height- FrameSize.height)/10);
+        this.setClosable(false) ;
         editar.show();
         contador=contador+1;
         met.ArticulosEditarPasar();
@@ -93,6 +107,7 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlBuscarArticulos = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtArticulosBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -128,35 +143,51 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 22, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblregresar)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
+        javax.swing.GroupLayout pnlBuscarArticulosLayout = new javax.swing.GroupLayout(pnlBuscarArticulos);
+        pnlBuscarArticulos.setLayout(pnlBuscarArticulosLayout);
+        pnlBuscarArticulosLayout.setHorizontalGroup(
+            pnlBuscarArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBuscarArticulosLayout.createSequentialGroup()
+                .addGroup(pnlBuscarArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBuscarArticulosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblregresar))
+                    .addGroup(pnlBuscarArticulosLayout.createSequentialGroup()
+                        .addGap(82, 82, 82)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
+                        .addGap(27, 27, 27)
                         .addComponent(txtArticulosBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBuscarArticulosLayout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        pnlBuscarArticulosLayout.setVerticalGroup(
+            pnlBuscarArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBuscarArticulosLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(lblregresar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlBuscarArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtArticulosBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlBuscarArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlBuscarArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -184,6 +215,7 @@ public class frmArticulosBuscar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblregresar;
+    private javax.swing.JPanel pnlBuscarArticulos;
     public static javax.swing.JTable tblArticulosbuscar;
     public static javax.swing.JTextField txtArticulosBuscar;
     // End of variables declaration//GEN-END:variables

@@ -26,6 +26,7 @@ public class MetodosCompras {
        frmComprasnuevas.lblNproveedor.setText(id);
        frmComprasnuevas.lbltipopago.setText(tipopago);
        frmComprasnuevas.lbldiascredito.setText(diascredito);
+       frmComprasnuevas.jdcfechacompra.setEnabled(true);
     }
     
     public static Date sumarRestarDiasFecha(Date fecha, int dias) 

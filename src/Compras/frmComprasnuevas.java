@@ -14,7 +14,6 @@ import proveedores.frmProveedores;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,6 +34,8 @@ public class frmComprasnuevas extends javax.swing.JInternalFrame {
     static String fechapago; //fecha con formato a mostrar
     public frmComprasnuevas() {
         initComponents();
+        jdcfechacompra.setDate(new Date());
+        jdcfechacompra.setEnabled(false);
         
     }
    
@@ -179,9 +180,9 @@ public class frmComprasnuevas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jdcfechacompra, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44))
+                    .addComponent(lblFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdcfechacompra, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
         );
         panRegistroLayout.setVerticalGroup(
             panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,6 +246,7 @@ public class frmComprasnuevas extends javax.swing.JInternalFrame {
         FrameSize = buscar.getSize();
         buscar.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         frmProveedorBuscar.inicializador=3;
+        lblFechaPago.setText("");
         if(frmProveedores.vezuna==false){
             metprovedor.tablaModelo();
         }
@@ -283,7 +285,7 @@ public class frmComprasnuevas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private com.toedter.calendar.JDateChooser jdcfechacompra;
+    public static com.toedter.calendar.JDateChooser jdcfechacompra;
     private javax.swing.JLabel lblFechaPago;
     public static javax.swing.JLabel lblNproveedor;
     public static javax.swing.JLabel lblProvedornombre1;

@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import proveedores.frmProveedores;
 
 /**
@@ -28,6 +29,7 @@ public class frmMenu extends javax.swing.JFrame {
     public frmMenu() {
         initComponents();
         tamañopantalla();
+        
     }
     public void tamañopantalla()
     {

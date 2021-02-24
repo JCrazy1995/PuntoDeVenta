@@ -5,6 +5,8 @@
  */
 package puntodeventa;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author carlo
@@ -18,6 +20,7 @@ public class PuntoDeVenta {
         // TODO code application logic here
         frmMenu menu=new frmMenu();
         menu.setVisible(true);
+        JOptionPane.showMessageDialog(null, "prueba");
         
     }
     
