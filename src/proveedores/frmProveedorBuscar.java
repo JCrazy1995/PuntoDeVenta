@@ -5,8 +5,10 @@
  */
 package proveedores;
 
+import Compras.frmComprasnuevas;
 import clases.MetodosCompras;
 import clases.MetodosProveedores;
+import clases.modalInternalFrame;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author usuario
  */
-public class frmProveedorBuscar extends javax.swing.JInternalFrame {
+public class frmProveedorBuscar extends modalInternalFrame {
 
     /**
      * Creates new form frmProveedorBuscar
@@ -39,6 +41,10 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
     public frmProveedorBuscar() {
         initComponents();
         click();
+    }
+
+    public frmProveedorBuscar(frmComprasnuevas aThis, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     void click()
     {
@@ -196,6 +202,7 @@ public class frmProveedorBuscar extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
          String proveedor;
          proveedor=txtBuscar.getText().trim();
+         System.out.println(proveedor);
         met.filtrarDatosTableBuscar(proveedor);
     }//GEN-LAST:event_txtBuscarKeyReleased
 
