@@ -28,8 +28,7 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
 
     public frmComprasBuscarArticulo() {
         initComponents();
-        met.modeloTablaBuscar();
-        // met.busquedaArticulos();
+//        met.busquedaArticulos();
         txtFiltroArticulos.requestFocus();
         pnltabla.setVisible(false);
         click();
@@ -49,6 +48,7 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
     }
 
     public void enviar() {
+
         String id, nombre, precio;
         id = tblComprasTabla.getValueAt(tblComprasTabla.getSelectedRow(), 0).toString();
         nombre = tblComprasTabla.getValueAt(tblComprasTabla.getSelectedRow(), 1).toString();
@@ -59,6 +59,19 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
         txtcantidad.requestFocus();
         frmComprasBuscarArticulo.txtFiltroArticulos.setText(null);
         pnltabla.setVisible(false);
+    }
+
+    public void botonguardar() {
+        frmComprasnuevas.pnlTablaCompras.setVisible(true);
+        String id, nombre, precio, cantidad;
+        float total;
+        id = lblid.getText();
+        nombre = lblnombre.getText();
+        precio = txtprecio.getText();
+        cantidad = txtcantidad.getText();
+        total = Float.parseFloat(lbltotal.getText());
+        met.enviarDatosCompras(id, nombre, precio, cantidad, total);
+        met.limpiarCamposFrmComprasBuscarArticulo();
     }
 
     /**
@@ -84,7 +97,7 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
         lblid = new javax.swing.JLabel();
         lblnombre = new javax.swing.JLabel();
         lbltotal = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnagregarmovimiento = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         cbCodigoBusqueda = new javax.swing.JCheckBox();
         pnltabla = new javax.swing.JPanel();
@@ -200,10 +213,15 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
                         .addGap(56, 56, 56))))
         );
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnagregarmovimiento.setText("Agregar");
+        btnagregarmovimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnagregarmovimientoActionPerformed(evt);
+            }
+        });
+        btnagregarmovimiento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnagregarmovimientoKeyPressed(evt);
             }
         });
 
@@ -242,14 +260,14 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
             pnltablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnltablaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnltablaLayout.setVerticalGroup(
             pnltablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnltablaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -259,45 +277,42 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton3)
-                        .addGap(95, 95, 95)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFiltroArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbCodigoBusqueda))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(241, 241, 241)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(111, 111, 111)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFiltroArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbCodigoBusqueda))
                             .addComponent(pnltabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(188, 188, 188)
+                                .addComponent(btnagregarmovimiento))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtFiltroArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbCodigoBusqueda)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton3)))
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtFiltroArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbCodigoBusqueda))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnltabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
+                .addComponent(btnagregarmovimiento)
+                .addContainerGap())
         );
 
         pack();
@@ -323,7 +338,7 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
             precio = Float.parseFloat(txtprecio.getText());
             total = precio * cantidad;
             lbltotal.setText(total + "");
-            jButton1.requestFocus();
+            btnagregarmovimiento.requestFocus();
         }
     }//GEN-LAST:event_txtprecioKeyPressed
 
@@ -354,56 +369,55 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             tblComprasTabla.requestFocus();
             tblComprasTabla.changeSelection(0, 0, false, false);
-            
         }
     }//GEN-LAST:event_txtFiltroArticulosKeyPressed
 
     private void txtFiltroArticulosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroArticulosKeyTyped
         // TODO add your handling code here:
-
-
+ 
     }//GEN-LAST:event_txtFiltroArticulosKeyTyped
 
     private void txtFiltroArticulosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroArticulosKeyReleased
         // TODO add your handling code here:
         String Articulo;
         int id;
-        if("".equals(txtFiltroArticulos.getText()))
-        {
+        if ("".equals(txtFiltroArticulos.getText())) {
             pnltabla.setVisible(false);
-        }
-        else{
-             pnltabla.setVisible(true);
-             try {
-            id = Integer.parseInt(txtFiltroArticulos.getText().trim());
-            met.filtradoBusquedaID(id);
-        } catch (Exception e) {
-            Articulo = txtFiltroArticulos.getText();
-            met.filtradoBusquedaNombre(Articulo);
-        }
-        }
+        } else {
+            met.modeloTablaBuscar();
+            pnltabla.setVisible(true);
             
-       
+            try {
+                id = Integer.parseInt(txtFiltroArticulos.getText().trim());
+                met.filtradoBusquedaID(id);
+            } catch (Exception e) {
+                Articulo = txtFiltroArticulos.getText();
+                met.filtradoBusquedaNombre(Articulo);
+            }
+        }
+
 
     }//GEN-LAST:event_txtFiltroArticulosKeyReleased
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnagregarmovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarmovimientoActionPerformed
         // TODO add your handling code here:
-        String id, nombre, precio,cantidad;
-        float total;
-        id=lblid.getText();
-        nombre=lblnombre.getText();
-        precio= txtprecio.getText();
-        cantidad=txtcantidad.getText();
-        total=Float.parseFloat(lbltotal.getText());
-        met.enviarDatosCompras(id, nombre, precio, cantidad, total);
-        met.limpiarCamposFrmComprasBuscarArticulo();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        botonguardar();
+        
+
+    }//GEN-LAST:event_btnagregarmovimientoActionPerformed
+
+    private void btnagregarmovimientoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnagregarmovimientoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            botonguardar();
+        }
+        txtFiltroArticulos.requestFocus();
+    }//GEN-LAST:event_btnagregarmovimientoKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnagregarmovimiento;
     private javax.swing.JCheckBox cbCodigoBusqueda;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

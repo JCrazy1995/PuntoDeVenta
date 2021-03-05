@@ -18,9 +18,11 @@ public class conexion {
 
     // Nombre de la base de datos
     public String database = "prueba";
+//    public String database = "semill13_prueba";
 
     // Host
     public String hostname = "localhost";
+//    public String hostname = "162.241.62.141";
 
     // Puerto
     public String port = "3306";
@@ -30,16 +32,17 @@ public class conexion {
 
     // Nombre de usuario
     public String username = "root";
+//    public String username = "semill13_root";
 
     // Clave de usuario
     public String password = "0547";
+//       public String password = "qscesz@.1047";
      public Connection conectarMySQL() {
         Connection conn = null;
 
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url, username, password);
-//            JOptionPane.showMessageDialog(null, "Se conecto");
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null,e);
         }

@@ -12,6 +12,7 @@ import clases.modalInternalFrame;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -182,6 +183,7 @@ public class frmProveedorBuscar extends modalInternalFrame {
         // TODO add your handling code here:
        if(inicializador==3)
        {
+           String fechapago = frmComprasnuevas.lblFechaPago.getText();
            
        }
        else

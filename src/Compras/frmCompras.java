@@ -5,6 +5,7 @@
  */
 package Compras;
 
+import clases.MetodosCompras;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -23,6 +24,7 @@ public class frmCompras extends javax.swing.JFrame {
      */
     public Dimension desktopSize;// variable para posicionar el jinternal
     public Dimension FrameSize;// variable para posicionar el jinternal
+    MetodosCompras metcompras = new MetodosCompras();
     public frmCompras() {
         initComponents();
         tamañopantalla();
@@ -186,6 +188,8 @@ public class frmCompras extends javax.swing.JFrame {
         desktopSize = panel2.getSize();
         FrameSize = compras.getSize();
         compras.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        
+        metcompras.modeloTablaCompras();
         compras.show();
     }//GEN-LAST:event_btncomprasnuevasActionPerformed
 
