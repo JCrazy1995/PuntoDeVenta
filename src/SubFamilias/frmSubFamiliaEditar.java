@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Familias;
+package SubFamilias;
 
-import clases.MetodosFamilia;
+import Familias.*;
+import clases.MetodosSubFamilia;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -13,16 +14,16 @@ import javax.swing.JOptionPane;
  *
  * @author usuario
  */
-public class frmFamiliaEditar extends javax.swing.JInternalFrame {
+public class frmSubFamiliaEditar extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form frmArticulosEditar
      */
     int id;
-    MetodosFamilia met = new MetodosFamilia();
+    MetodosSubFamilia met = new MetodosSubFamilia();
     char validarnumeros;
 
-    public frmFamiliaEditar() {
+    public frmSubFamiliaEditar() {
         initComponents();
     }
 
@@ -38,26 +39,31 @@ public class frmFamiliaEditar extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        lblidfamilia = new javax.swing.JLabel();
-        txtNombreFamilia = new javax.swing.JTextField();
+        lblidsubfamilia = new javax.swing.JLabel();
+        txtNombreSubFamilia = new javax.swing.JTextField();
+        cmbfamilia = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
 
-        jLabel1.setText("N° Articulo:");
+        jLabel1.setText("N° Subfamilia");
 
         jLabel2.setText("Nombre:");
+
+        jLabel3.setText("Familia:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(64, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -67,23 +73,25 @@ public class frmFamiliaEditar extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        lblidfamilia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblidfamilia.setText("0");
+        lblidsubfamilia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblidsubfamilia.setText("0");
 
-        txtNombreFamilia.addActionListener(new java.awt.event.ActionListener() {
+        txtNombreSubFamilia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreFamiliaActionPerformed(evt);
+                txtNombreSubFamiliaActionPerformed(evt);
             }
         });
-        txtNombreFamilia.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNombreSubFamilia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtNombreFamiliaKeyPressed(evt);
+                txtNombreSubFamiliaKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreFamiliaKeyTyped(evt);
+                txtNombreSubFamiliaKeyTyped(evt);
             }
         });
 
@@ -95,21 +103,25 @@ public class frmFamiliaEditar extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addComponent(lblidfamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblidsubfamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 66, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(txtNombreFamilia)))
+                        .addComponent(txtNombreSubFamilia))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cmbfamilia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblidfamilia)
+                .addComponent(lblidsubfamilia)
                 .addGap(18, 18, 18)
-                .addComponent(txtNombreFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtNombreSubFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(cmbfamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/regresar.png"))); // NOI18N
@@ -145,13 +157,13 @@ public class frmFamiliaEditar extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addGap(73, 73, 73)
+                        .addComponent(btnActualizar)
+                        .addGap(29, 29, 29))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnActualizar)
-                        .addGap(29, 29, 29)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -164,10 +176,10 @@ public class frmFamiliaEditar extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btneliminar)
                     .addComponent(btnActualizar))
@@ -177,25 +189,25 @@ public class frmFamiliaEditar extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreFamiliaActionPerformed
+    private void txtNombreSubFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreSubFamiliaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreFamiliaActionPerformed
+    }//GEN-LAST:event_txtNombreSubFamiliaActionPerformed
 
-    private void txtNombreFamiliaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreFamiliaKeyPressed
+    private void txtNombreSubFamiliaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreSubFamiliaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btnActualizar.requestFocus();
         }
-    }//GEN-LAST:event_txtNombreFamiliaKeyPressed
+    }//GEN-LAST:event_txtNombreSubFamiliaKeyPressed
 
-    private void txtNombreFamiliaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreFamiliaKeyTyped
+    private void txtNombreSubFamiliaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreSubFamiliaKeyTyped
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_txtNombreFamiliaKeyTyped
+    }//GEN-LAST:event_txtNombreSubFamiliaKeyTyped
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
-        frmfamiliaBuscar.contador = 0;
+        frmSubfamiliaBuscar.contador = 0;
         this.dispose();
         frmfamiliaBuscar.txtfamiliabuscar.requestFocus();
 
@@ -204,30 +216,31 @@ public class frmFamiliaEditar extends javax.swing.JInternalFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
 
-        String nombre;
-        id = Integer.parseInt(lblidfamilia.getText());
-        nombre = txtNombreFamilia.getText();
-        met.Actualizar(id, nombre);
-        frmfamiliaBuscar.modelotablafamilia.setRowCount(0);
-        frmfamiliaBuscar.contador = 0;
-        met.FamiliaBuscar();
+        String nombre,nombrefamilia;
+        id = Integer.parseInt(lblidsubfamilia.getText());
+        nombre = txtNombreSubFamilia.getText();
+        nombrefamilia= cmbfamilia.getSelectedItem()+"";
+        met.Actualizar(id, nombre,nombrefamilia);
+        frmSubfamiliaBuscar.modelotablasubfamilia.setRowCount(0);
+        frmSubfamiliaBuscar.contador = 0;
+        met.SubFamiliaBuscar();
         this.dispose();
-        frmfamiliaBuscar.txtfamiliabuscar.requestFocus();
+        frmSubfamiliaBuscar.txtsubfamiliabuscar.requestFocus();
 
 
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
-        id = Integer.parseInt(lblidfamilia.getText());
+        id = Integer.parseInt(lblidsubfamilia.getText());
         int confirmacion = JOptionPane.showOptionDialog(null, "Seguro de eliminar", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, new Object[]{"Si", "No"}, iconable);
         if (confirmacion == 0) {
             met.eliminar(id);
-            frmfamiliaBuscar.modelotablafamilia.setRowCount(0);
-            met.FamiliaBuscar();
-            frmfamiliaBuscar.contador = 0;
+            frmSubfamiliaBuscar.modelotablasubfamilia.setRowCount(0);
+            met.SubFamiliaBuscar();
+            frmSubfamiliaBuscar.contador = 0;
             this.dispose();
-            frmfamiliaBuscar.txtfamiliabuscar.requestFocus();
+            frmSubfamiliaBuscar.txtsubfamiliabuscar.requestFocus();
 
         }
 
@@ -238,12 +251,14 @@ public class frmFamiliaEditar extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     public static javax.swing.JButton btneliminar;
+    public static javax.swing.JComboBox<String> cmbfamilia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    public static javax.swing.JLabel lblidfamilia;
-    public static javax.swing.JTextField txtNombreFamilia;
+    public static javax.swing.JLabel lblidsubfamilia;
+    public static javax.swing.JTextField txtNombreSubFamilia;
     // End of variables declaration//GEN-END:variables
 }

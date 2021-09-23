@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Familias;
+package SubFamilias;
 
-import clases.MetodosFamilia;
+import clases.MetodosSubFamilia;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -13,29 +13,30 @@ import javax.swing.JOptionPane;
  *
  * @author usuario
  */
-public class frmFamiliaNuevos extends javax.swing.JInternalFrame {
+public class frmSubFamiliaNuevos extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form frmArticulosCrear
      */
-    MetodosFamilia met = new MetodosFamilia();
+    MetodosSubFamilia met = new MetodosSubFamilia();
     char validarnumeros;
     
-    public frmFamiliaNuevos() {
+    public frmSubFamiliaNuevos() {
         initComponents();
         
     }
     
     public void comprobarvacios() {
-        if ("".equals(txtNombreFamilia.getText())) {
+        if ("".equals(txtNombreSubFamilia.getText())) {
             JOptionPane.showMessageDialog(this, "No dejar Campos Vacios");
         } else {
             
             String nombre;
-            nombre = txtNombreFamilia.getText();
-            met.FamiliaCrear(nombre);
-            lblfamilia.setText(met.UltimoIdFamilia() + "");
-            txtNombreFamilia.setText("");
+            nombre = txtNombreSubFamilia.getText();
+            String nombrefamilia = cmbFamilia.getSelectedItem()+"";
+            met.SubFamiliaCrear(nombre,nombrefamilia);
+            lblsubfamilia.setText(met.UltimoIdSubFamilia() + "");
+            txtNombreSubFamilia.setText("");
         }
         
     }
@@ -52,25 +53,32 @@ public class frmFamiliaNuevos extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        lblfamilia = new javax.swing.JLabel();
-        txtNombreFamilia = new javax.swing.JTextField();
-        btnFamiliaAgregar = new javax.swing.JButton();
+        lblsubfamilia = new javax.swing.JLabel();
+        txtNombreSubFamilia = new javax.swing.JTextField();
+        cmbFamilia = new javax.swing.JComboBox<>();
+        btnSubfamiliaAgregar = new javax.swing.JButton();
         lblregresar = new javax.swing.JLabel();
 
-        jLabel1.setText("N° Familia:");
+        jLabel1.setText("N° SubFamilia:");
 
         jLabel2.setText("Nombre:");
+
+        jLabel3.setText("Familia:");
+        jLabel3.setAlignmentY(1.0F);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -80,22 +88,24 @@ public class frmFamiliaNuevos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        lblfamilia.setText("0");
+        lblsubfamilia.setText("0");
 
-        txtNombreFamilia.addActionListener(new java.awt.event.ActionListener() {
+        txtNombreSubFamilia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreFamiliaActionPerformed(evt);
+                txtNombreSubFamiliaActionPerformed(evt);
             }
         });
-        txtNombreFamilia.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNombreSubFamilia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtNombreFamiliaKeyPressed(evt);
+                txtNombreSubFamiliaKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreFamiliaKeyTyped(evt);
+                txtNombreSubFamiliaKeyTyped(evt);
             }
         });
 
@@ -107,32 +117,37 @@ public class frmFamiliaNuevos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addComponent(lblfamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblsubfamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 66, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(txtNombreFamilia)))
+                        .addComponent(txtNombreSubFamilia))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cmbFamilia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblfamilia)
+                .addComponent(lblsubfamilia)
                 .addGap(18, 18, 18)
-                .addComponent(txtNombreFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombreSubFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cmbFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnFamiliaAgregar.setText("Agregar");
-        btnFamiliaAgregar.addActionListener(new java.awt.event.ActionListener() {
+        btnSubfamiliaAgregar.setText("Agregar");
+        btnSubfamiliaAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFamiliaAgregarActionPerformed(evt);
+                btnSubfamiliaAgregarActionPerformed(evt);
             }
         });
-        btnFamiliaAgregar.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnSubfamiliaAgregar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnFamiliaAgregarKeyPressed(evt);
+                btnSubfamiliaAgregarKeyPressed(evt);
             }
         });
 
@@ -154,12 +169,12 @@ public class frmFamiliaNuevos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblregresar)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(btnFamiliaAgregar)))
+                        .addGap(114, 114, 114)
+                        .addComponent(btnSubfamiliaAgregar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -170,43 +185,43 @@ public class frmFamiliaNuevos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(btnFamiliaAgregar)
-                .addGap(44, 44, 44))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(btnSubfamiliaAgregar)
+                .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreFamiliaActionPerformed
+    private void txtNombreSubFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreSubFamiliaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreFamiliaActionPerformed
+    }//GEN-LAST:event_txtNombreSubFamiliaActionPerformed
 
-    private void btnFamiliaAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFamiliaAgregarActionPerformed
+    private void btnSubfamiliaAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubfamiliaAgregarActionPerformed
         // TODO add your handling code here:
         comprobarvacios();
         
-    }//GEN-LAST:event_btnFamiliaAgregarActionPerformed
+    }//GEN-LAST:event_btnSubfamiliaAgregarActionPerformed
 
-    private void txtNombreFamiliaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreFamiliaKeyTyped
+    private void txtNombreSubFamiliaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreSubFamiliaKeyTyped
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_txtNombreFamiliaKeyTyped
+    }//GEN-LAST:event_txtNombreSubFamiliaKeyTyped
 
-    private void txtNombreFamiliaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreFamiliaKeyPressed
+    private void txtNombreSubFamiliaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreSubFamiliaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            btnFamiliaAgregar.requestFocus();
+            btnSubfamiliaAgregar.requestFocus();
         }
-    }//GEN-LAST:event_txtNombreFamiliaKeyPressed
+    }//GEN-LAST:event_txtNombreSubFamiliaKeyPressed
 
-    private void btnFamiliaAgregarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnFamiliaAgregarKeyPressed
+    private void btnSubfamiliaAgregarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSubfamiliaAgregarKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             comprobarvacios();
         }
 
-    }//GEN-LAST:event_btnFamiliaAgregarKeyPressed
+    }//GEN-LAST:event_btnSubfamiliaAgregarKeyPressed
 
     private void lblregresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblregresarMouseClicked
         // TODO add your handling code here:
@@ -216,13 +231,15 @@ public class frmFamiliaNuevos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFamiliaAgregar;
+    private javax.swing.JButton btnSubfamiliaAgregar;
+    public static javax.swing.JComboBox<String> cmbFamilia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    public static javax.swing.JLabel lblfamilia;
     private javax.swing.JLabel lblregresar;
-    private javax.swing.JTextField txtNombreFamilia;
+    public static javax.swing.JLabel lblsubfamilia;
+    private javax.swing.JTextField txtNombreSubFamilia;
     // End of variables declaration//GEN-END:variables
 }
