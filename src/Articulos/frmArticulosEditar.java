@@ -322,7 +322,7 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
         int confirmacion= JOptionPane.showOptionDialog(null, "Seguro de eliminar", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, new Object[]{"Si","No"}, iconable);
         if (confirmacion ==0)
         {
-            met.elimiar(id);
+            met.eliminar(id);
             frmArticulosBuscar.modelotablaArticulos.setRowCount(0);
             met.ArticulosBuscar();
             frmArticulosBuscar.contador=0;

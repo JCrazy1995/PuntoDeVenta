@@ -20,29 +20,35 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
      */
     MetodosArticulos met = new MetodosArticulos();
     char validarnumeros;
+    int contadorfamilia = 0;
+
     public frmArticulosNuevos() {
         initComponents();
-       
+        cmbsubfamilia.setEnabled(false);
+
     }
 
-   public void comprobarvacios()
-   {
-       if("".equals(txtNombreArticulo.getText())||"".equals(txtPrecioArticulo.getText())||"".equals(txtPrecioCompra.getText()))
-       {
-           JOptionPane.showMessageDialog(this, "No dejar Campos Vacios");           
-       }
-       else
-       {
-            float precio,preciocompra;
-            String nombre,empaquetado;
+    public void comprobarvacios() {
+        if ("".equals(txtNombreArticulo.getText()) || "".equals(txtPrecioArticulo.getText()) || "".equals(txtPrecioCompra.getText())) {
+            JOptionPane.showMessageDialog(this, "No dejar Campos Vacios");
+        } else {
+            float precio, preciocompra;
+            String nombre, empaquetado,familia,subfamilia;
             precio = Float.parseFloat(txtPrecioArticulo.getText());
             preciocompra = Float.parseFloat(txtPrecioCompra.getText());
             nombre = txtNombreArticulo.getText();
             empaquetado = cmbEmpaquetado.getSelectedItem().toString();
-            met.ArticulosCrear(nombre, precio, preciocompra, empaquetado);
-       }
-               
-   }
+            familia= cmbfamilia.getSelectedItem().toString();
+            subfamilia=cmbsubfamilia.getSelectedItem().toString();
+
+            met.ArticulosCrear(nombre, precio, preciocompra, empaquetado,familia,subfamilia);
+            contadorfamilia = 0;
+            cmbsubfamilia.removeAllItems();
+            cmbsubfamilia.setEnabled(false);
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,12 +64,16 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblidArticulo = new javax.swing.JLabel();
         txtNombreArticulo = new javax.swing.JTextField();
         txtPrecioArticulo = new javax.swing.JTextField();
         txtPrecioCompra = new javax.swing.JTextField();
         cmbEmpaquetado = new javax.swing.JComboBox<>();
+        cmbfamilia = new javax.swing.JComboBox<>();
+        cmbsubfamilia = new javax.swing.JComboBox<>();
         btnArticulosAgregar = new javax.swing.JButton();
         lblregresar = new javax.swing.JLabel();
 
@@ -77,6 +87,10 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Empaquetado:");
 
+        jLabel6.setText("Familia:");
+
+        jLabel7.setText("SubFamilia:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -88,7 +102,9 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -104,6 +120,10 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -142,9 +162,33 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
         });
 
         cmbEmpaquetado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "KG", "PTE", "CAJA", "BULTO" }));
+        cmbEmpaquetado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbEmpaquetadoItemStateChanged(evt);
+            }
+        });
+        cmbEmpaquetado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbEmpaquetadoMouseClicked(evt);
+            }
+        });
         cmbEmpaquetado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cmbEmpaquetadoKeyPressed(evt);
+            }
+        });
+
+        cmbfamilia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbfamiliaItemStateChanged(evt);
+            }
+        });
+        cmbfamilia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbfamiliaMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cmbfamiliaMouseReleased(evt);
             }
         });
 
@@ -168,7 +212,13 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
                         .addComponent(txtPrecioCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(cmbEmpaquetado, 0, 150, Short.MAX_VALUE)))
+                        .addComponent(cmbEmpaquetado, 0, 150, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cmbfamilia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cmbsubfamilia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -184,7 +234,11 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
                 .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cmbEmpaquetado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(cmbfamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cmbsubfamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         btnArticulosAgregar.setText("Agregar");
@@ -217,13 +271,15 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(btnArticulosAgregar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(btnArticulosAgregar))))
                     .addComponent(lblregresar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,13 +287,14 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
                 .addComponent(lblregresar)
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnArticulosAgregar)
-                .addGap(12, 12, 12))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(41, 41, 41))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnArticulosAgregar)
+                        .addGap(21, 21, 21))))
         );
 
         pack();
@@ -250,65 +307,62 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
     private void btnArticulosAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArticulosAgregarActionPerformed
         // TODO add your handling code here:
         comprobarvacios();
-       
     }//GEN-LAST:event_btnArticulosAgregarActionPerformed
 
     private void txtNombreArticuloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreArticuloKeyTyped
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtNombreArticuloKeyTyped
 
     private void txtPrecioArticuloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioArticuloKeyTyped
         // TODO add your handling code here:
-         validarnumeros = evt.getKeyChar();
-         if((validarnumeros<'0' || validarnumeros>'9') && (validarnumeros<=',' || validarnumeros>'.')|| (validarnumeros=='-'))  evt.consume();
+        validarnumeros = evt.getKeyChar();
+        if ((validarnumeros < '0' || validarnumeros > '9') && (validarnumeros <= ',' || validarnumeros > '.') || (validarnumeros == '-'))
+            evt.consume();
     }//GEN-LAST:event_txtPrecioArticuloKeyTyped
 
     private void txtPrecioCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCompraKeyTyped
         // TODO add your handling code here:
-         validarnumeros = evt.getKeyChar();
-         if((validarnumeros<'0' || validarnumeros>'9') && (validarnumeros<=',' || validarnumeros>'.')|| (validarnumeros=='-'))  evt.consume();
+        validarnumeros = evt.getKeyChar();
+        if ((validarnumeros < '0' || validarnumeros > '9') && (validarnumeros <= ',' || validarnumeros > '.') || (validarnumeros == '-'))
+            evt.consume();
     }//GEN-LAST:event_txtPrecioCompraKeyTyped
 
     private void txtNombreArticuloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreArticuloKeyPressed
         // TODO add your handling code here:
-           if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-            {
-                txtPrecioArticulo.requestFocus();
-            }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtPrecioArticulo.requestFocus();
+        }
     }//GEN-LAST:event_txtNombreArticuloKeyPressed
 
     private void txtPrecioArticuloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioArticuloKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-            {
-                txtPrecioCompra.requestFocus();
-            }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtPrecioCompra.requestFocus();
+        }
     }//GEN-LAST:event_txtPrecioArticuloKeyPressed
 
     private void txtPrecioCompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCompraKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-            {
-                cmbEmpaquetado.requestFocus();
-            }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cmbEmpaquetado.requestFocus();
+        }
     }//GEN-LAST:event_txtPrecioCompraKeyPressed
 
     private void cmbEmpaquetadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbEmpaquetadoKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-            {
-                btnArticulosAgregar.requestFocus();
-            }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnArticulosAgregar.requestFocus();
+             contadorfamilia = 1;
+        }
     }//GEN-LAST:event_cmbEmpaquetadoKeyPressed
 
     private void btnArticulosAgregarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnArticulosAgregarKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-            {
-                comprobarvacios();                
-            }
-        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            comprobarvacios();
+        }
+
     }//GEN-LAST:event_btnArticulosAgregarKeyPressed
 
     private void lblregresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblregresarMouseClicked
@@ -317,15 +371,48 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
         met.mostrarbotones();
     }//GEN-LAST:event_lblregresarMouseClicked
 
+    private void cmbfamiliaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbfamiliaMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cmbfamiliaMouseClicked
+
+    private void cmbfamiliaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbfamiliaMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbfamiliaMouseReleased
+
+    private void cmbfamiliaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbfamiliaItemStateChanged
+        // TODO add your handling code here:
+        if (contadorfamilia == 1) {
+            cmbsubfamilia.removeAllItems();
+            cmbsubfamilia.setEnabled(true);
+            met.rellenarcmbsubfamiliaeditar(met.obtenercmbfamilia(cmbfamilia.getSelectedItem().toString()));
+        }
+
+    }//GEN-LAST:event_cmbfamiliaItemStateChanged
+
+    private void cmbEmpaquetadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEmpaquetadoItemStateChanged
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_cmbEmpaquetadoItemStateChanged
+
+    private void cmbEmpaquetadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbEmpaquetadoMouseClicked
+        // TODO add your handling code here:
+         contadorfamilia = 1;
+    }//GEN-LAST:event_cmbEmpaquetadoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArticulosAgregar;
     private javax.swing.JComboBox<String> cmbEmpaquetado;
+    public static javax.swing.JComboBox<String> cmbfamilia;
+    public static javax.swing.JComboBox<String> cmbsubfamilia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JLabel lblidArticulo;
