@@ -21,6 +21,7 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
     int id;
     MetodosArticulos met = new MetodosArticulos();
     char validarnumeros;
+    int contadorfamilia = 0;
     public frmArticulosEditar() {
         initComponents();
     }
@@ -42,12 +43,16 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblidArticulo = new javax.swing.JLabel();
         txtNombreArticulo = new javax.swing.JTextField();
         txtPrecioArticulo = new javax.swing.JTextField();
         txtPrecioCompra = new javax.swing.JTextField();
         cmbEmpaquetado = new javax.swing.JComboBox<>();
+        cmbfamilia = new javax.swing.JComboBox<>();
+        cmbsubfamilia = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
@@ -62,6 +67,10 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Empaquetado:");
 
+        jLabel7.setText("Familia:");
+
+        jLabel8.setText("SubFamilia:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -73,7 +82,9 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -89,7 +100,11 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addGap(19, 19, 19))
         );
 
         lblidArticulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -134,6 +149,20 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
             }
         });
 
+        cmbfamilia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbfamiliaItemStateChanged(evt);
+            }
+        });
+        cmbfamilia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbfamiliaMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cmbfamiliaMouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -154,7 +183,13 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
                         .addComponent(txtPrecioCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(cmbEmpaquetado, 0, 150, Short.MAX_VALUE)))
+                        .addComponent(cmbEmpaquetado, 0, 150, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cmbfamilia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cmbsubfamilia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -170,7 +205,11 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
                 .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cmbEmpaquetado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(cmbfamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cmbsubfamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/regresar.png"))); // NOI18N
@@ -207,31 +246,29 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(btnActualizar)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btneliminar)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                        .addGap(96, 96, 96)
+                        .addComponent(btnActualizar)
+                        .addGap(30, 30, 30)
+                        .addComponent(btneliminar)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel6)
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 4, Short.MAX_VALUE)))
-                .addGap(33, 33, 33)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActualizar)
                     .addComponent(btneliminar))
-                .addGap(113, 113, 113))
+                .addGap(93, 93, 93))
         );
 
         pack();
@@ -301,16 +338,19 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
         float precio,preciocompra;
-        String nombre,empaquetado;
+        String nombre,empaquetado,familia,subfamilia;
         id = Integer.parseInt(lblidArticulo.getText());
         precio= Float.parseFloat(txtPrecioArticulo.getText());
         preciocompra= Float.parseFloat(txtPrecioCompra.getText());
         nombre = txtNombreArticulo.getText();
         empaquetado= cmbEmpaquetado.getSelectedItem().toString();
-        met.Actualizar(id, nombre, precio, preciocompra, empaquetado);
+        familia = cmbfamilia.getSelectedItem().toString();
+        subfamilia = cmbsubfamilia.getSelectedItem().toString();
+        met.Actualizar(id, nombre, precio, preciocompra, empaquetado,familia,subfamilia);
         frmArticulosBuscar.modelotablaArticulos.setRowCount(0);
         frmArticulosBuscar.contador=0;
         met.ArticulosBuscar();
+        contadorfamilia=0;
         this.dispose();
         
 
@@ -327,23 +367,45 @@ public class frmArticulosEditar extends javax.swing.JInternalFrame {
             met.ArticulosBuscar();
             frmArticulosBuscar.contador=0;
             this.dispose();
-            
+             contadorfamilia=0;
         }
         
        
     }//GEN-LAST:event_btneliminarActionPerformed
+
+    private void cmbfamiliaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbfamiliaItemStateChanged
+        // TODO add your handling code here:
+        if (contadorfamilia == 1) {
+            cmbsubfamilia.removeAllItems();
+            cmbsubfamilia.setEnabled(true);
+            met.rellenarcmbsubfamiliaeditar(met.obtenercmbfamilia(cmbfamilia.getSelectedItem().toString()));
+        }
+    }//GEN-LAST:event_cmbfamiliaItemStateChanged
+
+    private void cmbfamiliaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbfamiliaMouseClicked
+        // TODO add your handling code here:
+        contadorfamilia= 1;
+    }//GEN-LAST:event_cmbfamiliaMouseClicked
+
+    private void cmbfamiliaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbfamiliaMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbfamiliaMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     public static javax.swing.JButton btneliminar;
     public static javax.swing.JComboBox<String> cmbEmpaquetado;
+    public static javax.swing.JComboBox<String> cmbfamilia;
+    public static javax.swing.JComboBox<String> cmbsubfamilia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JLabel lblidArticulo;

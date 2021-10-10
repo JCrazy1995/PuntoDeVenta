@@ -8,6 +8,8 @@ package puntodeventa;
 
 import Articulos.frmArticulos3;
 import Compras.frmCompras;
+import Familias.frmfamilia;
+import SubFamilias.frmsubfamilia;
 import Usuarios.frmClientes;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -61,6 +63,8 @@ public class frmMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnProveedores = new javax.swing.JButton();
         btnCompras = new javax.swing.JButton();
+        btnFamilia = new javax.swing.JButton();
+        btnSubfamilia = new javax.swing.JButton();
         lblminimizar = new javax.swing.JLabel();
         lblcerrar = new javax.swing.JLabel();
 
@@ -106,11 +110,27 @@ public class frmMenu extends javax.swing.JFrame {
             }
         });
 
+        btnFamilia.setText("Familias");
+        btnFamilia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFamiliaActionPerformed(evt);
+            }
+        });
+
+        btnSubfamilia.setText("Subfamilias");
+        btnSubfamilia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubfamiliaActionPerformed(evt);
+            }
+        });
+
         panel1.setLayer(btnArticulos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(btnUsuarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(btnProveedores, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(btnCompras, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panel1.setLayer(btnFamilia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panel1.setLayer(btnSubfamilia, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -130,9 +150,15 @@ public class frmMenu extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
-                        .addComponent(btnProveedores)
-                        .addGap(63, 63, 63)
-                        .addComponent(btnCompras)))
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnFamilia)
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addComponent(btnProveedores)
+                                .addGap(63, 63, 63)
+                                .addComponent(btnCompras))))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(btnSubfamilia)))
                 .addContainerGap(382, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
@@ -149,7 +175,11 @@ public class frmMenu extends javax.swing.JFrame {
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProveedores)
                     .addComponent(btnCompras))
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addComponent(btnFamilia)
+                .addGap(18, 18, 18)
+                .addComponent(btnSubfamilia)
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         lblminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/minimizar.png"))); // NOI18N
@@ -257,6 +287,21 @@ public class frmMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnComprasActionPerformed
 
+    private void btnFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFamiliaActionPerformed
+        // TODO add your handling code here:
+        frmfamilia familia = new frmfamilia();
+        familia.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_btnFamiliaActionPerformed
+
+    private void btnSubfamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubfamiliaActionPerformed
+        // TODO add your handling code here:
+        frmsubfamilia subfamilia = new frmsubfamilia();
+        subfamilia.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSubfamiliaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -295,7 +340,9 @@ public class frmMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArticulos;
     private javax.swing.JButton btnCompras;
+    private javax.swing.JButton btnFamilia;
     private javax.swing.JButton btnProveedores;
+    private javax.swing.JButton btnSubfamilia;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;

@@ -353,7 +353,7 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btnArticulosAgregar.requestFocus();
-             contadorfamilia = 1;
+             
         }
     }//GEN-LAST:event_cmbEmpaquetadoKeyPressed
 
@@ -373,7 +373,7 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
 
     private void cmbfamiliaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbfamiliaMouseClicked
         // TODO add your handling code here:
-
+            contadorfamilia = 1;
     }//GEN-LAST:event_cmbfamiliaMouseClicked
 
     private void cmbfamiliaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbfamiliaMouseReleased
@@ -385,7 +385,7 @@ public class frmArticulosNuevos extends javax.swing.JInternalFrame {
         if (contadorfamilia == 1) {
             cmbsubfamilia.removeAllItems();
             cmbsubfamilia.setEnabled(true);
-            met.rellenarcmbsubfamiliaeditar(met.obtenercmbfamilia(cmbfamilia.getSelectedItem().toString()));
+            met.rellenarcmbsubfamilia(met.obtenercmbfamilia(cmbfamilia.getSelectedItem().toString()));
         }
 
     }//GEN-LAST:event_cmbfamiliaItemStateChanged

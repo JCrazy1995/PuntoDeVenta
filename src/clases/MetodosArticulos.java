@@ -35,7 +35,7 @@ public class MetodosArticulos {
     Object filas[] = new Object[8];
     TableRowSorter trs; // Variable Para lo del filtrado de la busqueda
 
-    public void ArticulosCrear(String nombre, float precio, float preciocompra, String empaquetado,String familia,String subfamilia) {
+    public void ArticulosCrear(String nombre, float precio, float preciocompra, String empaquetado, String familia, String subfamilia) {
         try {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
@@ -77,17 +77,19 @@ public class MetodosArticulos {
         return id;
     }
 
-    public void Actualizar(int id, String nombre, float precio, float preciocompra, String empaquetado) {
+    public void Actualizar(int id, String nombre, float precio, float preciocompra, String empaquetado,String familia,String subfamilia) {
         try {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
             PreparedStatement actualizar = con.prepareStatement("update tblarticulos set nombre=?,precio_venta=?"
-                    + ",precio_compra=?,empaquetado=? where idArticulos=?");
+                    + ",precio_compra=?,empaquetado=?,id_familia =?,id_subfamilia=? where idArticulos=?");
             actualizar.setString(1, nombre);
             actualizar.setFloat(2, precio);
             actualizar.setFloat(3, preciocompra);
             actualizar.setString(4, empaquetado);
-            actualizar.setInt(5, id);
+            actualizar.setInt(5, obtenercmbfamilia(familia));
+            actualizar.setInt(6, obtenercmbsubfamilia(subfamilia));
+            actualizar.setInt(7, id);
             actualizar.executeUpdate();
             actualizar.close();
             JOptionPane.showMessageDialog(null, "Acutalizado Correctamente");
@@ -176,17 +178,27 @@ public class MetodosArticulos {
     }
 
     public void ArticulosEditarPasar() {
-        String id, nombre, precio, preciocompra, empaquetado;
+        String id, nombre, precio, preciocompra, empaquetado,familia,subfamilia;
+        int valfamilia,valsubfamilia;
         id = frmArticulosBuscar.tblArticulosbuscar.getValueAt(frmArticulosBuscar.tblArticulosbuscar.getSelectedRow(), 0).toString();
         nombre = frmArticulosBuscar.tblArticulosbuscar.getValueAt(frmArticulosBuscar.tblArticulosbuscar.getSelectedRow(), 1).toString();
         precio = frmArticulosBuscar.tblArticulosbuscar.getValueAt(frmArticulosBuscar.tblArticulosbuscar.getSelectedRow(), 2).toString();
         preciocompra = frmArticulosBuscar.tblArticulosbuscar.getValueAt(frmArticulosBuscar.tblArticulosbuscar.getSelectedRow(), 3).toString();
         empaquetado = frmArticulosBuscar.tblArticulosbuscar.getValueAt(frmArticulosBuscar.tblArticulosbuscar.getSelectedRow(), 4).toString();
-
+        familia = frmArticulosBuscar.tblArticulosbuscar.getValueAt(frmArticulosBuscar.tblArticulosbuscar.getSelectedRow(), 5).toString();
+        subfamilia= frmArticulosBuscar.tblArticulosbuscar.getValueAt(frmArticulosBuscar.tblArticulosbuscar.getSelectedRow(), 6).toString();        
+        
+        
         frmArticulosEditar.lblidArticulo.setText(id);
         frmArticulosEditar.txtNombreArticulo.setText(nombre);
         frmArticulosEditar.txtPrecioArticulo.setText(precio);
         frmArticulosEditar.txtPrecioCompra.setText(preciocompra);
+        rellenarcmbfamiliaeditar();
+        valfamilia=obtenercmbfamilia(familia);
+        rellenarcmbsubfamiliaeditar(valfamilia);
+        valsubfamilia=obtenercmbsubfamilia(subfamilia);
+        frmArticulosEditar.cmbfamilia.setSelectedIndex(valfamilia-1);
+         frmArticulosEditar.cmbsubfamilia.setSelectedIndex(valsubfamilia-1);
         buscartabla("");
         frmArticulosBuscar.txtArticulosBuscar.setText("");
         //frmArticulosEditar.cmbEmpaquetado.setSelectedItem(empaquetado);
@@ -215,9 +227,8 @@ public class MetodosArticulos {
         trs = new TableRowSorter(frmArticulosBuscar.tblArticulosbuscar.getModel());
         frmArticulosBuscar.tblArticulosbuscar.setRowSorter(trs);
     }
-    
-    
-    public void rellenarcmbfamiliaeditar() {
+
+    public void rellenarcmbfamilia() {
         try {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
@@ -229,11 +240,24 @@ public class MetodosArticulos {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
     }
-    
-    
-    
+
+    public void rellenarcmbfamiliaeditar() {
+        try {
+            con = conectar.conectarMySQL();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("select famnombre,id_familia from tblfamilia where estatus='Activo';");
+            while (rs.next()) {
+                frmArticulosEditar.cmbfamilia.addItem(rs.getString(1));
+            }
+            con.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+
     public int obtenercmbfamilia(String nombre) {
         int idfamilia = 0;
         try {
@@ -251,23 +275,36 @@ public class MetodosArticulos {
         }
         return idfamilia;
     }
-    
-    
-    public void rellenarcmbsubfamiliaeditar(int id) {
+
+    public void rellenarcmbsubfamilia(int id) {
         try {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select subnombre,id_subfamilia from tblsubfamilia where id_familia='"+id+"' and estatus='Activo';");
+            rs = stmt.executeQuery("select subnombre,id_subfamilia from tblsubfamilia where id_familia='" + id + "' and estatus='Activo';");
             while (rs.next()) {
                 frmArticulosNuevos.cmbsubfamilia.addItem(rs.getString(1));
             }
-           con.close();
+            con.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
     
-     public int obtenercmbsubfamilia(String nombre) {
+     public void rellenarcmbsubfamiliaeditar(int id) {
+        try {
+            con = conectar.conectarMySQL();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("select subnombre,id_subfamilia from tblsubfamilia where id_familia='" + id + "' and estatus='Activo';");
+            while (rs.next()) {
+                frmArticulosEditar.cmbsubfamilia.addItem(rs.getString(1));
+            }
+            con.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public int obtenercmbsubfamilia(String nombre) {
         int idfamilia = 0;
         try {
 

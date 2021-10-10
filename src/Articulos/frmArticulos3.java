@@ -230,7 +230,7 @@ public class frmArticulos3 extends javax.swing.JFrame {
         crear.show();
         int id = met.UltimoIdArticulo();
         frmArticulosNuevos.lblidArticulo.setText(id+"");
-        met.rellenarcmbfamiliaeditar();
+        met.rellenarcmbfamilia();
         met.ocultarbotones();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
