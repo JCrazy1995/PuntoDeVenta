@@ -137,7 +137,7 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
         if (lblncliente.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "No ha elegido Cliente");
         }
-        frmVentasBuscarArticulo3 buscar = new frmVentasBuscarArticulo3();
+        frmVentasBuscarArticulo2 buscar = new frmVentasBuscarArticulo2();
         buscar.setModal(true);
         desktopSize = frmVentas.panel2.getSize();
         FrameSize = buscar.getSize();
@@ -213,6 +213,8 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         lblTotalcompra = new javax.swing.JLabel();
         lblTotalVenta = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        lblutilidad = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Prueba"));
@@ -539,6 +541,11 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
         lblTotalVenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotalVenta.setText("0");
 
+        jLabel15.setText("Utilidad:");
+
+        lblutilidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblutilidad.setText("0");
+
         javax.swing.GroupLayout panRegistroLayout = new javax.swing.GroupLayout(panRegistro);
         panRegistro.setLayout(panRegistroLayout);
         panRegistroLayout.setHorizontalGroup(
@@ -559,7 +566,11 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
                 .addComponent(lblTotalVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addGap(18, 18, 18)
+                .addComponent(lblutilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
         panRegistroLayout.setVerticalGroup(
             panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,12 +581,15 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                 .addComponent(pnlTablaventas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14)
-                        .addComponent(lblTotalcompra)
-                        .addComponent(lblTotalVenta))
-                    .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)))
+                    .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(lblutilidad))
+                        .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(lblTotalcompra)
+                            .addComponent(lblTotalVenta)))
+                    .addComponent(jLabel7))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -596,12 +610,13 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(284, 284, 284)
-                .addComponent(btnGuardar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(284, 284, 284)
+                        .addComponent(btnGuardar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -677,6 +692,7 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -706,6 +722,7 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
     public static javax.swing.JLabel lblnexterior;
     public static javax.swing.JLabel lbltelefono;
     public static javax.swing.JLabel lbltipopago;
+    public static javax.swing.JLabel lblutilidad;
     public static javax.swing.JPanel panRegistro;
     public static javax.swing.JPanel pnlTablaventas;
     public static javax.swing.JTable tblVenta;

@@ -10,13 +10,15 @@ import clases.modalInternalFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author usuario
  */
-public class frmVentasBuscarArticulo3 extends modalInternalFrame {
+public class frmVentasBuscarArticulo2 extends modalInternalFrame {
 
     /**
      * Creates new form frmComprasBuscarArticulo
@@ -25,8 +27,9 @@ public class frmVentasBuscarArticulo3 extends modalInternalFrame {
     public static DefaultTableModel mo = new DefaultTableModel();
     public static boolean controlModelo = false;
     MetodosVentas met = new MetodosVentas();
+    DecimalFormat df = new DecimalFormat("#.00");
 
-    public frmVentasBuscarArticulo3() {
+    public frmVentasBuscarArticulo2() {
         initComponents();
 //        met.busquedaArticulos();
         txtFiltroArticulos.requestFocus();
@@ -56,24 +59,25 @@ public class frmVentasBuscarArticulo3 extends modalInternalFrame {
         precioventa = tblVentassTabla.getValueAt(tblVentassTabla.getSelectedRow(), 3).toString();
         lblid.setText(id);
         lblnombre.setText(nombre);
-        txtprecioventa.setText(preciocompra);
-        txtpreciocompra.setText(precioventa);
+        txtprecioventa.setText(df.format(Double.parseDouble(preciocompra))+"");
+        txtpreciocompra.setText(df.format(Double.parseDouble(precioventa))+"");
         txtcantidad.requestFocus();
-        frmVentasBuscarArticulo3.txtFiltroArticulos.setText(null);
+        frmVentasBuscarArticulo2.txtFiltroArticulos.setText(null);
         pnltabla.setVisible(false);
     }
 
     public void botonguardar() {
         frmVentassnuevas.pnlTablaventas.setVisible(true);
         String id, nombre, preciocompra,precioventa, cantidad;
-        float total;
+        float total,totalcompra;
         id = lblid.getText();
         nombre = lblnombre.getText();
         precioventa = txtprecioventa.getText();
         preciocompra = txtpreciocompra.getText();
         cantidad = txtcantidad.getText();
         total = Float.parseFloat(lbltotal.getText());
-        met.enviarDatosCompras(id, nombre, precioventa,preciocompra, cantidad, total);
+        totalcompra=(Float.parseFloat(preciocompra)*Float.parseFloat(cantidad));
+        met.enviarDatosCompras(id, nombre, precioventa,preciocompra, cantidad, total,totalcompra);
         met.limpiarCamposFrmventasBuscarArticulo();
         txtFiltroArticulos.requestFocus();
     }
@@ -350,6 +354,11 @@ public class frmVentasBuscarArticulo3 extends modalInternalFrame {
     private void txtcantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcantidadKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Double cantidad, precio, total;
+            cantidad = Double.parseDouble(txtcantidad.getText());
+            precio = Double.parseDouble(txtprecioventa.getText());
+            total = precio * cantidad;
+            lbltotal.setText(df.format(total )+"");
             txtprecioventa.requestFocus();
         }
          if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -360,11 +369,11 @@ public class frmVentasBuscarArticulo3 extends modalInternalFrame {
     private void txtprecioventaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioventaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            float cantidad, precio, total;
-            cantidad = Float.parseFloat(txtcantidad.getText());
-            precio = Float.parseFloat(txtprecioventa.getText());
+            Double cantidad, precio, total;
+            cantidad = Double.parseDouble(txtcantidad.getText());
+            precio = Double.parseDouble(txtprecioventa.getText());
             total = precio * cantidad;
-            lbltotal.setText(total + "");
+            lbltotal.setText(df.format(total )+"");
             txtpreciocompra.requestFocus();
         }
          if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {

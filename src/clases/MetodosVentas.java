@@ -8,7 +8,7 @@ package clases;
 import Compras.frmComprasBuscarArticulo;
 import Compras.frmComprasnuevas;
 import Usuarios.frmClientesBuscar;
-import Ventas.frmVentasBuscarArticulo3;
+import Ventas.frmVentasBuscarArticulo2;
 import Ventas.frmVentassnuevas;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -65,15 +65,15 @@ public class MetodosVentas {
 
     public void modeloTablaBuscar() {
 
-        if (frmVentasBuscarArticulo3.controlModelo == false) {
-            frmVentasBuscarArticulo3.mo.addColumn("ID");
-            frmVentasBuscarArticulo3.mo.addColumn("Nombre");
-            frmVentasBuscarArticulo3.mo.addColumn("Precio Compra:");
-            frmVentasBuscarArticulo3.mo.addColumn("Precio venta:");
-            frmVentasBuscarArticulo3.tblVentassTabla.setModel(frmVentasBuscarArticulo3.mo);
-            frmVentasBuscarArticulo3.controlModelo = true;
+        if (frmVentasBuscarArticulo2.controlModelo == false) {
+            frmVentasBuscarArticulo2.mo.addColumn("ID");
+            frmVentasBuscarArticulo2.mo.addColumn("Nombre");
+            frmVentasBuscarArticulo2.mo.addColumn("Precio Venta:");
+            frmVentasBuscarArticulo2.mo.addColumn("Precio Compra:");
+            frmVentasBuscarArticulo2.tblVentassTabla.setModel(frmVentasBuscarArticulo2.mo);
+            frmVentasBuscarArticulo2.controlModelo = true;
         } else {
-            frmVentasBuscarArticulo3.tblVentassTabla.setModel(frmVentasBuscarArticulo3.mo);
+            frmVentasBuscarArticulo2.tblVentassTabla.setModel(frmVentasBuscarArticulo2.mo);
         }
 
     }
@@ -121,7 +121,7 @@ public class MetodosVentas {
 
     public void filtradoBusquedaNombre(String busqueda) {
         try {
-            frmVentasBuscarArticulo3.mo.setRowCount(0);
+            frmVentasBuscarArticulo2.mo.setRowCount(0);
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
             rs = stmt.executeQuery("select idArticulos, nombre, precio_compra,precio_venta from tblarticulos where estatus='Activo'"
@@ -129,9 +129,9 @@ public class MetodosVentas {
             while (rs.next()) {
                 filas[0] = rs.getInt(1);
                 filas[1] = rs.getString(2);
-                filas[2] = rs.getFloat(3);
-                filas[3] = rs.getFloat(4);
-                frmVentasBuscarArticulo3.mo.addRow(filas);
+                filas[2] = rs.getFloat(4);
+                filas[3] = rs.getFloat(3);
+                frmVentasBuscarArticulo2.mo.addRow(filas);
             }
             con.close();
         } catch (SQLException e) {
@@ -141,7 +141,7 @@ public class MetodosVentas {
 
     public void filtradoBusquedaID(int busqueda) {
         try {
-            frmVentasBuscarArticulo3.mo.setRowCount(0);
+            frmVentasBuscarArticulo2.mo.setRowCount(0);
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
             rs = stmt.executeQuery("select idArticulos, nombre, precio_compra,precio_venta from tblarticulos where estatus='Activo'"
@@ -149,9 +149,9 @@ public class MetodosVentas {
             while (rs.next()) {
                 filas[0] = rs.getInt(1);
                 filas[1] = rs.getString(2);
-                filas[2] = rs.getFloat(3);
-                filas[3] = rs.getFloat(4);
-                frmVentasBuscarArticulo3.mo.addRow(filas);
+                filas[2] = rs.getFloat(4);
+                filas[3] = rs.getFloat(3);
+                frmVentasBuscarArticulo2.mo.addRow(filas);
             }
             con.close();
         } catch (SQLException e) {
@@ -160,40 +160,48 @@ public class MetodosVentas {
     }
 
     public void buscartabla(String Articulo) {
-        frmVentasBuscarArticulo3.txtFiltroArticulos.addKeyListener(new KeyAdapter() {
+        frmVentasBuscarArticulo2.txtFiltroArticulos.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyReleased(KeyEvent ke) {
                 trs.setRowFilter(RowFilter.regexFilter("(?i)" + Articulo, 1));
             }
         });
-        trs = new TableRowSorter(frmVentasBuscarArticulo3.tblVentassTabla.getModel());
-        frmVentasBuscarArticulo3.tblVentassTabla.setRowSorter(trs);
+        trs = new TableRowSorter(frmVentasBuscarArticulo2.tblVentassTabla.getModel());
+        frmVentasBuscarArticulo2.tblVentassTabla.setRowSorter(trs);
     }
 
     public void limpiarCamposFrmventasBuscarArticulo() {
-        frmVentasBuscarArticulo3.lblid.setText("");
-        frmVentasBuscarArticulo3.lblnombre.setText("");
-        frmVentasBuscarArticulo3.lbltotal.setText("0.0");
-        frmVentasBuscarArticulo3.txtcantidad.setText("");
-        frmVentasBuscarArticulo3.txtpreciocompra.setText("0.0");
-        frmVentasBuscarArticulo3.txtprecioventa.setText("0.0");
+        frmVentasBuscarArticulo2.lblid.setText("");
+        frmVentasBuscarArticulo2.lblnombre.setText("");
+        frmVentasBuscarArticulo2.lbltotal.setText("0.0");
+        frmVentasBuscarArticulo2.txtcantidad.setText("");
+        frmVentasBuscarArticulo2.txtpreciocompra.setText("0.0");
+        frmVentasBuscarArticulo2.txtprecioventa.setText("0.0");
     }
 
-    public void enviarDatosCompras(String ID, String nombre, String precioventa,String preciocompra, String cantidad, float total) {
-        float suma, lbl;
-        Object f[] = new Object[6];
+    public void enviarDatosCompras(String ID, String nombre, String precioventa,String preciocompra, String cantidad, float total,float totalcompra) {
+        float sumaventa,sumacompra, lbltotalventa,lbltotalcompra,utilidad;
+        Object f[] = new Object[7];
         f[0] = ID;
         f[1] = nombre;
         f[2] = precioventa;
         f[3] = preciocompra;
         f[4] = cantidad;
         f[5] = total;
+        f[6] = totalcompra;
         frmVentassnuevas.modelo.addRow(f);
         frmVentassnuevas.tblVenta.setModel(frmVentassnuevas.modelo);
-        lbl = Float.parseFloat(frmVentassnuevas.lblTotalVenta.getText());
-        suma = total + lbl;
-        frmVentassnuevas.lblTotalVenta.setText(suma + "");
+        lbltotalventa = Float.parseFloat(frmVentassnuevas.lblTotalVenta.getText());
+        lbltotalcompra=Float.parseFloat(frmVentassnuevas.lblTotalcompra.getText());
+        sumaventa = total + lbltotalventa;
+        sumacompra = totalcompra+lbltotalcompra;
+        frmVentassnuevas.lblTotalVenta.setText(sumaventa + "");
+        frmVentassnuevas.lblTotalcompra.setText(sumacompra + "");
+        lbltotalventa = Float.parseFloat(frmVentassnuevas.lblTotalVenta.getText());
+        lbltotalcompra=Float.parseFloat(frmVentassnuevas.lblTotalcompra.getText());
+        utilidad= lbltotalventa-lbltotalcompra;
+        frmVentassnuevas.lblutilidad.setText(utilidad+"");
     }
 
     public void guardarventa(int idproveedor, float total, String fechaventa, String fechapago) {
