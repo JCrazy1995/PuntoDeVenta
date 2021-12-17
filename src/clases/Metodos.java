@@ -96,9 +96,7 @@ public class Metodos {
         {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-     
-        
+         
     }
     
     
@@ -153,23 +151,23 @@ public class Metodos {
         cp=frmClientesBuscar.tblClientesBuscar.getValueAt(frmClientesBuscar.tblClientesBuscar.getSelectedRow(),9 ).toString();
     
         
-        frmClientesEditar.lblidCliente.setText(id);
-        frmClientesEditar.txtNombreCliente.setText(nombre);
-        frmClientesEditar.txtTelefonoCliente.setText(telefono);
+        frmClientesEditar.lblidcliente.setText(id);
+        frmClientesEditar.txtnombre.setText(nombre);
+        frmClientesEditar.txttelefono.setText(telefono);
         if("Contado".equals(tpago))
         {
-           frmClientesEditar.cmbTipoPago.setSelectedIndex(0);
+           frmClientesEditar.cmbtipopago.setSelectedIndex(0);
         }
         else
         {
-            frmClientesEditar.cmbTipoPago.setSelectedIndex(1);
+            frmClientesEditar.cmbtipopago.setSelectedIndex(1);
         }
-        frmClientesEditar.txtDiasCreditoCliente.setText(diasCredito);
-        frmClientesEditar.txtColonia.setText(colonia);
-        frmClientesEditar.txtCalle.setText(calle);
-        frmClientesEditar.txtExterior.setText(exterior);
-        frmClientesEditar.txtInterior.setText(interior);
-        frmClientesEditar.txtCP.setText(cp);
+        frmClientesEditar.txtdiascredito.setText(diasCredito);
+        frmClientesEditar.txtcolonia.setText(colonia);
+        frmClientesEditar.txtcalle.setText(calle);
+        frmClientesEditar.txtexterior.setText(exterior);
+        frmClientesEditar.txtinterior.setText(interior);
+        frmClientesEditar.txtcp.setText(cp);
     
     
     }

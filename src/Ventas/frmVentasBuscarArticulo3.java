@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Compras;
+package Ventas;
 
-import clases.MetodosCompras;
+import clases.MetodosVentas;
 import clases.modalInternalFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author usuario
  */
-public class frmComprasBuscarArticulo extends modalInternalFrame {
+public class frmVentasBuscarArticulo3 extends modalInternalFrame {
 
     /**
      * Creates new form frmComprasBuscarArticulo
@@ -24,9 +24,9 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
     char validarnumeros;
     public static DefaultTableModel mo = new DefaultTableModel();
     public static boolean controlModelo = false;
-    MetodosCompras met = new MetodosCompras();
+    MetodosVentas met = new MetodosVentas();
 
-    public frmComprasBuscarArticulo() {
+    public frmVentasBuscarArticulo3() {
         initComponents();
 //        met.busquedaArticulos();
         txtFiltroArticulos.requestFocus();
@@ -35,7 +35,7 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
     }
 
     void click() {
-        tblComprasTabla.addMouseListener(new MouseAdapter() {
+        tblVentassTabla.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent Mouse_evt) {
                 if (Mouse_evt.getClickCount() == 2) {
@@ -49,29 +49,33 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
 
     public void enviar() {
 
-        String id, nombre, precio;
-        id = tblComprasTabla.getValueAt(tblComprasTabla.getSelectedRow(), 0).toString();
-        nombre = tblComprasTabla.getValueAt(tblComprasTabla.getSelectedRow(), 1).toString();
-        precio = tblComprasTabla.getValueAt(tblComprasTabla.getSelectedRow(), 2).toString();
+        String id, nombre, preciocompra,precioventa;
+        id = tblVentassTabla.getValueAt(tblVentassTabla.getSelectedRow(), 0).toString();
+        nombre = tblVentassTabla.getValueAt(tblVentassTabla.getSelectedRow(), 1).toString();
+        preciocompra = tblVentassTabla.getValueAt(tblVentassTabla.getSelectedRow(), 2).toString();
+        precioventa = tblVentassTabla.getValueAt(tblVentassTabla.getSelectedRow(), 3).toString();
         lblid.setText(id);
         lblnombre.setText(nombre);
-        txtprecio.setText(precio);
+        txtprecioventa.setText(preciocompra);
+        txtpreciocompra.setText(precioventa);
         txtcantidad.requestFocus();
-        frmComprasBuscarArticulo.txtFiltroArticulos.setText(null);
+        frmVentasBuscarArticulo3.txtFiltroArticulos.setText(null);
         pnltabla.setVisible(false);
     }
 
     public void botonguardar() {
-        frmComprasnuevas.pnlTablaCompras.setVisible(true);
-        String id, nombre, precio, cantidad;
+        frmVentassnuevas.pnlTablaventas.setVisible(true);
+        String id, nombre, preciocompra,precioventa, cantidad;
         float total;
         id = lblid.getText();
         nombre = lblnombre.getText();
-        precio = txtprecio.getText();
+        precioventa = txtprecioventa.getText();
+        preciocompra = txtpreciocompra.getText();
         cantidad = txtcantidad.getText();
         total = Float.parseFloat(lbltotal.getText());
-        met.enviarDatosCompras(id, nombre, precio, cantidad, total);
-        met.limpiarCamposFrmComprasBuscarArticulo();
+        met.enviarDatosCompras(id, nombre, precioventa,preciocompra, cantidad, total);
+        met.limpiarCamposFrmventasBuscarArticulo();
+        txtFiltroArticulos.requestFocus();
     }
 
     /**
@@ -92,17 +96,19 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtcantidad = new javax.swing.JTextField();
-        txtprecio = new javax.swing.JTextField();
+        txtprecioventa = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         lblid = new javax.swing.JLabel();
         lblnombre = new javax.swing.JLabel();
         lbltotal = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtpreciocompra = new javax.swing.JTextField();
         btnagregarmovimiento = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         cbCodigoBusqueda = new javax.swing.JCheckBox();
         pnltabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblComprasTabla = new javax.swing.JTable();
+        tblVentassTabla = new javax.swing.JTable();
 
         jLabel1.setText("Nombre producto:");
 
@@ -126,7 +132,7 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
 
         jLabel4.setText("Cantidad:");
 
-        jLabel5.setText("Precio:");
+        jLabel5.setText("Precio Venta:");
 
         jLabel6.setText("Total:");
 
@@ -140,13 +146,13 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
             }
         });
 
-        txtprecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtprecio.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtprecioventa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtprecioventa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtprecioKeyPressed(evt);
+                txtprecioventaKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtprecioKeyTyped(evt);
+                txtprecioventaKeyTyped(evt);
             }
         });
 
@@ -154,63 +160,81 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
 
         lblid.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        lbltotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel7.setText("Precio Compra:");
+
+        txtpreciocompra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtpreciocompra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtpreciocompraKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtpreciocompraKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
+                .addGap(101, 101, 101)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
+                    .addComponent(jLabel7)
                     .addComponent(jLabel6))
                 .addGap(63, 63, 63)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lblid, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtcantidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
-                    .addComponent(lblnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblid, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lbltotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtprecio, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton2)))
-                .addGap(80, 80, 80))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtpreciocompra, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                            .addComponent(lbltotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
+                    .addComponent(lblnombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtcantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                    .addComponent(txtprecioventa, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(lblid, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(lblnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5))
-                    .addComponent(txtprecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblid, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtprecioventa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtpreciocompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(lbltotal, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbltotal, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                         .addComponent(jButton2)
-                        .addGap(56, 56, 56))))
+                        .addGap(20, 20, 20))))
         );
 
         btnagregarmovimiento.setText("Agregar");
@@ -236,7 +260,7 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
 
         cbCodigoBusqueda.setText("Codigo");
 
-        tblComprasTabla.setModel(new javax.swing.table.DefaultTableModel(
+        tblVentassTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -247,12 +271,12 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
 
             }
         ));
-        tblComprasTabla.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblVentassTabla.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                tblComprasTablaKeyPressed(evt);
+                tblVentassTablaKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(tblComprasTabla);
+        jScrollPane1.setViewportView(tblVentassTabla);
 
         javax.swing.GroupLayout pnltablaLayout = new javax.swing.GroupLayout(pnltabla);
         pnltabla.setLayout(pnltablaLayout);
@@ -288,13 +312,13 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
                                 .addComponent(txtFiltroArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cbCodigoBusqueda))
-                            .addComponent(pnltabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(188, 188, 188)
-                                .addComponent(btnagregarmovimiento))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(pnltabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(197, 197, 197)
+                        .addComponent(btnagregarmovimiento)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -310,7 +334,7 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
                 .addComponent(pnltabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addGap(18, 18, 18)
                 .addComponent(btnagregarmovimiento)
                 .addContainerGap())
         );
@@ -326,27 +350,27 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
     private void txtcantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcantidadKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtprecio.requestFocus();
+            txtprecioventa.requestFocus();
         }
          if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
         }
     }//GEN-LAST:event_txtcantidadKeyPressed
 
-    private void txtprecioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioKeyPressed
+    private void txtprecioventaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioventaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             float cantidad, precio, total;
             cantidad = Float.parseFloat(txtcantidad.getText());
-            precio = Float.parseFloat(txtprecio.getText());
+            precio = Float.parseFloat(txtprecioventa.getText());
             total = precio * cantidad;
             lbltotal.setText(total + "");
-            btnagregarmovimiento.requestFocus();
+            txtpreciocompra.requestFocus();
         }
          if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
         }
-    }//GEN-LAST:event_txtprecioKeyPressed
+    }//GEN-LAST:event_txtprecioventaKeyPressed
 
     private void txtcantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcantidadKeyTyped
         // TODO add your handling code here:
@@ -355,14 +379,14 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
             evt.consume();
     }//GEN-LAST:event_txtcantidadKeyTyped
 
-    private void txtprecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioKeyTyped
+    private void txtprecioventaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioventaKeyTyped
         // TODO add your handling code here:
         validarnumeros = evt.getKeyChar();
         if ((validarnumeros < '0' || validarnumeros > '9') && (validarnumeros <= ',' || validarnumeros > '.') || (validarnumeros == '-'))
             evt.consume();
-    }//GEN-LAST:event_txtprecioKeyTyped
+    }//GEN-LAST:event_txtprecioventaKeyTyped
 
-    private void tblComprasTablaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblComprasTablaKeyPressed
+    private void tblVentassTablaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblVentassTablaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             enviar();
@@ -370,14 +394,14 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
          if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
         }
-    }//GEN-LAST:event_tblComprasTablaKeyPressed
+    }//GEN-LAST:event_tblVentassTablaKeyPressed
 
     private void txtFiltroArticulosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroArticulosKeyPressed
         // TODO add your handling code here:
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            tblComprasTabla.requestFocus();
-            tblComprasTabla.changeSelection(0, 0, false, false);
+            tblVentassTabla.requestFocus();
+            tblVentassTabla.changeSelection(0, 0, false, false);
         }
          if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
@@ -429,6 +453,20 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
         }
     }//GEN-LAST:event_btnagregarmovimientoKeyPressed
 
+    private void txtpreciocompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpreciocompraKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnagregarmovimiento.requestFocus();
+        }
+         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_txtpreciocompraKeyPressed
+
+    private void txtpreciocompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpreciocompraKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpreciocompraKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnagregarmovimiento;
@@ -441,15 +479,17 @@ public class frmComprasBuscarArticulo extends modalInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblid;
     public static javax.swing.JLabel lblnombre;
     public static javax.swing.JLabel lbltotal;
     private javax.swing.JPanel pnltabla;
-    public static javax.swing.JTable tblComprasTabla;
+    public static javax.swing.JTable tblVentassTabla;
     public static javax.swing.JTextField txtFiltroArticulos;
     public static javax.swing.JTextField txtcantidad;
-    public static javax.swing.JTextField txtprecio;
+    public static javax.swing.JTextField txtpreciocompra;
+    public static javax.swing.JTextField txtprecioventa;
     // End of variables declaration//GEN-END:variables
 }
