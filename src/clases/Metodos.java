@@ -37,7 +37,7 @@ public class Metodos {
         con = conectar.conectarMySQL();
         try {
             stmt = con.createStatement();
-            PreparedStatement psInsert= con.prepareStatement("INSERT INTO tblClientes(nombre, telefono,tipoPago,diasCredito, colonia, calle, numeroExterior, interior, CP,estatus)"
+            PreparedStatement psInsert= con.prepareStatement("INSERT INTO tblClientes(clinombre, telefono,tipoPago,diasCredito, colonia, calle, numeroExterior, interior, CP,estatus)"
                    + " VALUES (?,?,?,?,?,?,?,?,?,?)");
 //            psInsert.setString(1, nombre);
             psInsert.setString(1, Nombre);
@@ -176,7 +176,7 @@ public class Metodos {
         try {
           con= conectar.conectarMySQL();
           stmt =con.createStatement();
-          PreparedStatement Acutalizardatos = con.prepareStatement("Update tblClientes set nombre=?,telefono=?,tipoPago=?"
+          PreparedStatement Acutalizardatos = con.prepareStatement("Update tblClientes set clinombre=?,telefono=?,tipoPago=?"
                   + ",diasCredito=?,colonia=?,calle=?,numeroExterior=?,interior=?,cp=? where idCliente = ?");
           Acutalizardatos.setString(1, Nombre);
           Acutalizardatos.setString(2, telefono);

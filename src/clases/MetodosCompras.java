@@ -91,7 +91,7 @@ public class MetodosCompras {
         try {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select idArticulos, nombre, precio_compra from tblarticulos where estatus='Activo';");
+            rs = stmt.executeQuery("select idArticulos, artnombre, precio_compra from tblarticulos where estatus='Activo';");
             while (rs.next()) {
                 filas[0] = rs.getInt(1);
                 filas[1] = rs.getString(2);
@@ -109,8 +109,8 @@ public class MetodosCompras {
             frmComprasBuscarArticulo.mo.setRowCount(0);
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select idArticulos, nombre, precio_compra from tblarticulos where estatus='Activo'"
-                    + "and nombre like '%" + busqueda + "%';");
+            rs = stmt.executeQuery("select idArticulos, artnombre, precio_compra from tblarticulos where estatus='Activo'"
+                    + "and artnombre like '%" + busqueda + "%';");
             while (rs.next()) {
                 filas[0] = rs.getInt(1);
                 filas[1] = rs.getString(2);
@@ -128,7 +128,7 @@ public class MetodosCompras {
             frmComprasBuscarArticulo.mo.setRowCount(0);
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select idArticulos, nombre, precio_compra from tblarticulos where estatus='Activo'"
+            rs = stmt.executeQuery("select idArticulos, artnombre, precio_compra from tblarticulos where estatus='Activo'"
                     + "and idArticulos like '%" + busqueda + "%';");
             while (rs.next()) {
                 filas[0] = rs.getInt(1);

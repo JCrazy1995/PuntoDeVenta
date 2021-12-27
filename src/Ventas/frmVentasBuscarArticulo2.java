@@ -68,17 +68,19 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
 
     public void botonguardar() {
         frmVentassnuevas.pnlTablaventas.setVisible(true);
-        String id, nombre, preciocompra,precioventa, cantidad;
-        float total,totalcompra;
+        String id, nombre, preciocompra,precioventa, cantidad,totcompra;
+        float total;
+        Double totalcompra;
         id = lblid.getText();
         nombre = lblnombre.getText();
         precioventa = txtprecioventa.getText();
         preciocompra = txtpreciocompra.getText();
         cantidad = txtcantidad.getText();
         total = Float.parseFloat(lbltotal.getText());
-        totalcompra=(Float.parseFloat(preciocompra)*Float.parseFloat(cantidad));
-        met.enviarDatosCompras(id, nombre, precioventa,preciocompra, cantidad, total,totalcompra);
-        met.limpiarCamposFrmventasBuscarArticulo();
+        totcompra = df.format((Double.parseDouble(preciocompra)*Double.parseDouble(cantidad)))+"";
+        totalcompra=Double.parseDouble(totcompra);
+        met.enviarDatosVentas(id, nombre, precioventa,preciocompra, cantidad, total,totalcompra);
+//        met.limpiarCamposFrmventasBuscarArticulo();
         txtFiltroArticulos.requestFocus();
     }
 

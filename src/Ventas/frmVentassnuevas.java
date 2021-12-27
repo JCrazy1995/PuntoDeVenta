@@ -8,6 +8,7 @@ package Ventas;
 import Usuarios.frmClientes;
 import Usuarios.frmClientesBuscar;
 import clases.Metodos;
+import clases.MetodosImprimir;
 import clases.MetodosVentas;
 
 import java.awt.Dimension;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import traducir.Traducir;
 
 /**
  *
@@ -33,6 +35,7 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
     public Dimension FrameSize;// variable para posicionar el jinternal
     Metodos metcliente = new Metodos();
     MetodosVentas metventas = new MetodosVentas();
+    MetodosImprimir metimprimir = new MetodosImprimir();
     public static DateFormat formatofecha = new SimpleDateFormat("dd/MM/yy");
     SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yy");// variable para el formato de la fecha a mostrar en el lblfechapago
     Date fecha; //Variable tomar fecha del jdate chooser
@@ -42,13 +45,14 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
     public static int click = 0;
     public static DefaultTableModel modelo = new DefaultTableModel();
     public static boolean controlModelo = false;
+    Traducir tra = new Traducir();
 
     public frmVentassnuevas() {
         initComponents();
         jdcfechaventa.setDate(new Date());
         jdcfechaventa.setEnabled(false);
         pnlTablaventas.setVisible(false);
-        lblidventa.setText(metventas.ultimoidcompra() + "");
+        lblidventa.setText(metventas.ultimoidventa() + "");
         dobleclick();
     }
 
@@ -65,7 +69,7 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
     public void guardarventa() {
         int idventa, idcliente, idarticulo;
         int filas = modelo.getRowCount();
-        float total, cantidad, preciocompra, precioventa;
+        float total, cantidad, preciocompra, precioventa,totalmovimiento;
         String fechaventa, fecha_pago;
         if (filas == 0 || "".equals(lblFechaPago.getText())) {
             JOptionPane.showMessageDialog(null, "Faltan datos para guardar");
@@ -82,14 +86,15 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
         for (int x = 0; x < filas; x++) {
             idarticulo = Integer.parseInt(tblVenta.getValueAt(x, 0).toString());
             cantidad = Float.parseFloat(tblVenta.getValueAt(x, 4).toString());
-            preciocompra = Float.parseFloat(tblVenta.getValueAt(x, 2).toString());
-            precioventa = Float.parseFloat(tblVenta.getValueAt(x, 3).toString());
-            metventas.actualizarexistenciaaritculos(idarticulo, preciocompra, cantidad);
-            metventas.guardarventasmovimientos(idventa, idarticulo, cantidad, preciocompra, precioventa);
+            preciocompra = Float.parseFloat(tblVenta.getValueAt(x, 3).toString());
+            precioventa = Float.parseFloat(tblVenta.getValueAt(x, 2).toString());
+            totalmovimiento=Float.parseFloat(tblVenta.getValueAt(x, 5).toString());
+            metventas.actualizarexistenciaaritculos(idarticulo, cantidad);
+            metventas.guardarventasmovimientos(idventa, idarticulo, cantidad, preciocompra, precioventa,totalmovimiento);
         }
 
-        lblidventa.setText(metventas.ultimoidcompra() + "");
-        limpiarFormulario();
+        //lblidventa.setText(metventas.ultimoidventa() + "");
+        //limpiarFormulario();
     }
 
     public void limpiarFormulario() {
@@ -115,7 +120,6 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                     fila = tblVenta.getSelectedRow();
                     frmeditaroeliminararticulotabla me = new frmeditaroeliminararticulotabla();
                     columna = tblVenta.getColumnCount();
-                    frmeditaroeliminararticulotabla.totalCompra = Float.parseFloat(lblTotalVenta.getText());
                     frmeditaroeliminararticulotabla.totalfila = Float.parseFloat(tblVenta.getValueAt(fila, 4).toString());
                     frmeditaroeliminararticulotabla.lblid.setText(tblVenta.getValueAt(fila, 0).toString());
                     frmeditaroeliminararticulotabla.lblnombre.setText(tblVenta.getValueAt(fila, 1).toString());
@@ -216,6 +220,7 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
         jLabel15 = new javax.swing.JLabel();
         lblutilidad = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
+        btnImprimirVenta = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Prueba"));
 
@@ -581,14 +586,13 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                 .addComponent(pnlTablaventas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(lblutilidad))
-                        .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(lblTotalcompra)
-                            .addComponent(lblTotalVenta)))
+                    .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(lblutilidad))
+                    .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(lblTotalcompra)
+                        .addComponent(lblTotalVenta))
                     .addComponent(jLabel7))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -605,6 +609,13 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
             }
         });
 
+        btnImprimirVenta.setText("Imprimir");
+        btnImprimirVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirVentaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -616,7 +627,9 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                         .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(284, 284, 284)
-                        .addComponent(btnGuardar)))
+                        .addComponent(btnGuardar)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnImprimirVenta)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -625,7 +638,9 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnGuardar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnImprimirVenta))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -676,15 +691,28 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
 
     private void btnbuscarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnbuscarClienteKeyPressed
         // TODO add your handling code here:
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             buscarcliente();
         }
     }//GEN-LAST:event_btnbuscarClienteKeyPressed
+
+    private void btnImprimirVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirVentaActionPerformed
+        // TODO add your handling code here:
+         int filas = modelo.getRowCount();
+        String Letras,Cliente;
+        int idventa = Integer.parseInt(lblidventa.getText());
+        Letras =tra.traducirNumeros(lblTotalVenta.getText(), rootPaneCheckingEnabled);
+        Cliente = lblcliente.getText();
+        JOptionPane.showMessageDialog(null, Letras);
+        JOptionPane.showMessageDialog(null, Cliente);
+        metimprimir.imprimirnotaoriginal(idventa, Letras,Cliente,filas);
+    }//GEN-LAST:event_btnImprimirVentaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarArticulos;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnImprimirVenta;
     private javax.swing.JButton btnbuscarCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

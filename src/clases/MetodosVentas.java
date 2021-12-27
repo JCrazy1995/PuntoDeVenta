@@ -5,8 +5,6 @@
  */
 package clases;
 
-import Compras.frmComprasBuscarArticulo;
-import Compras.frmComprasnuevas;
 import Usuarios.frmClientesBuscar;
 import Ventas.frmVentasBuscarArticulo2;
 import Ventas.frmVentassnuevas;
@@ -19,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
@@ -36,9 +35,11 @@ public class MetodosVentas {
     Object filas[] = new Object[6];
     TableRowSorter trs;
 
+    DecimalFormat df = new DecimalFormat("#.00");
+
     public void regresarCliente() {
         Date fechaEnviar;
-        String id, nombre,telefono, tipopago, diascredito,colonia,calle,nexterior,cp,fechaformato;
+        String id, nombre, telefono, tipopago, diascredito, colonia, calle, nexterior, cp, fechaformato;
         id = frmClientesBuscar.tblClientesBuscar.getValueAt(frmClientesBuscar.tblClientesBuscar.getSelectedRow(), 0).toString();
         nombre = frmClientesBuscar.tblClientesBuscar.getValueAt(frmClientesBuscar.tblClientesBuscar.getSelectedRow(), 1).toString();
         telefono = frmClientesBuscar.tblClientesBuscar.getValueAt(frmClientesBuscar.tblClientesBuscar.getSelectedRow(), 2).toString();
@@ -50,7 +51,7 @@ public class MetodosVentas {
         cp = frmClientesBuscar.tblClientesBuscar.getValueAt(frmClientesBuscar.tblClientesBuscar.getSelectedRow(), 9).toString();
         frmVentassnuevas.lblcliente.setText(nombre);
         frmVentassnuevas.lblncliente.setText(id);
-        frmVentassnuevas.lbltelefono.setText(telefono);        
+        frmVentassnuevas.lbltelefono.setText(telefono);
         frmVentassnuevas.lbltipopago.setText(tipopago);
         frmVentassnuevas.lbldiascredito.setText(diascredito);
         frmVentassnuevas.lblcolonia.setText(colonia);
@@ -60,7 +61,7 @@ public class MetodosVentas {
         frmVentassnuevas.jdcfechaventa.setEnabled(true);
         fechaEnviar = frmVentassnuevas.jdcfechaventa.getDate();
         frmVentassnuevas.lblFechaPago.setText(frmVentassnuevas.formatofecha.format(sumarRestarDiasFecha(fechaEnviar, Integer.parseInt(diascredito))));
-        
+
     }
 
     public void modeloTablaBuscar() {
@@ -82,8 +83,8 @@ public class MetodosVentas {
         if (frmVentassnuevas.controlModelo == false) {
             frmVentassnuevas.modelo.addColumn("ID Articulo");
             frmVentassnuevas.modelo.addColumn("Nombre");
-            frmVentassnuevas.modelo.addColumn("Precio Compra");
             frmVentassnuevas.modelo.addColumn("Precio Venta");
+            frmVentassnuevas.modelo.addColumn("Precio Compra");
             frmVentassnuevas.modelo.addColumn("Cantidad");
             frmVentassnuevas.modelo.addColumn("Total Venta");
             frmVentassnuevas.modelo.addColumn("Total Compra");
@@ -106,12 +107,12 @@ public class MetodosVentas {
         try {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select idArticulos, nombre, precio_compra from tblarticulos where estatus='Activo';");
+            rs = stmt.executeQuery("select idArticulos, artnombre, precio_compra from tblarticulos where estatus='Activo';");
             while (rs.next()) {
                 filas[0] = rs.getInt(1);
                 filas[1] = rs.getString(2);
                 filas[2] = rs.getFloat(3);
-                frmComprasBuscarArticulo.mo.addRow(filas);
+                frmVentasBuscarArticulo2.mo.addRow(filas);
             }
             con.close();
         } catch (SQLException e) {
@@ -124,8 +125,8 @@ public class MetodosVentas {
             frmVentasBuscarArticulo2.mo.setRowCount(0);
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select idArticulos, nombre, precio_compra,precio_venta from tblarticulos where estatus='Activo'"
-                    + "and nombre like '%" + busqueda + "%';");
+            rs = stmt.executeQuery("select idArticulos, artnombre, precio_compra,precio_venta from tblarticulos where estatus='Activo'"
+                    + "and artnombre like '%" + busqueda + "%' ;");
             while (rs.next()) {
                 filas[0] = rs.getInt(1);
                 filas[1] = rs.getString(2);
@@ -144,7 +145,7 @@ public class MetodosVentas {
             frmVentasBuscarArticulo2.mo.setRowCount(0);
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select idArticulos, nombre, precio_compra,precio_venta from tblarticulos where estatus='Activo'"
+            rs = stmt.executeQuery("select idArticulos, artnombre, precio_compra,precio_venta from tblarticulos where estatus='Activo'"
                     + "and idArticulos like '%" + busqueda + "%';");
             while (rs.next()) {
                 filas[0] = rs.getInt(1);
@@ -180,8 +181,8 @@ public class MetodosVentas {
         frmVentasBuscarArticulo2.txtprecioventa.setText("0.0");
     }
 
-    public void enviarDatosCompras(String ID, String nombre, String precioventa,String preciocompra, String cantidad, float total,float totalcompra) {
-        float sumaventa,sumacompra, lbltotalventa,lbltotalcompra,utilidad;
+    public void enviarDatosVentas(String ID, String nombre, String precioventa, String preciocompra, String cantidad, float total, double totalcompra) {
+        double sumaventa, sumacompra, lbltotalventa, lbltotalcompra, utilidad;
         Object f[] = new Object[7];
         f[0] = ID;
         f[1] = nombre;
@@ -192,16 +193,16 @@ public class MetodosVentas {
         f[6] = totalcompra;
         frmVentassnuevas.modelo.addRow(f);
         frmVentassnuevas.tblVenta.setModel(frmVentassnuevas.modelo);
-        lbltotalventa = Float.parseFloat(frmVentassnuevas.lblTotalVenta.getText());
-        lbltotalcompra=Float.parseFloat(frmVentassnuevas.lblTotalcompra.getText());
+        lbltotalventa = Double.parseDouble(frmVentassnuevas.lblTotalVenta.getText());
+        lbltotalcompra = Double.parseDouble(frmVentassnuevas.lblTotalcompra.getText());
         sumaventa = total + lbltotalventa;
-        sumacompra = totalcompra+lbltotalcompra;
-        frmVentassnuevas.lblTotalVenta.setText(sumaventa + "");
-        frmVentassnuevas.lblTotalcompra.setText(sumacompra + "");
-        lbltotalventa = Float.parseFloat(frmVentassnuevas.lblTotalVenta.getText());
-        lbltotalcompra=Float.parseFloat(frmVentassnuevas.lblTotalcompra.getText());
-        utilidad= lbltotalventa-lbltotalcompra;
-        frmVentassnuevas.lblutilidad.setText(utilidad+"");
+        sumacompra = totalcompra + lbltotalcompra;
+        frmVentassnuevas.lblTotalVenta.setText(df.format(sumaventa) + "");
+        frmVentassnuevas.lblTotalcompra.setText(df.format(sumacompra) + "");
+        lbltotalventa = Double.parseDouble(frmVentassnuevas.lblTotalVenta.getText());
+        lbltotalcompra = Double.parseDouble(frmVentassnuevas.lblTotalcompra.getText());
+        utilidad = lbltotalventa - lbltotalcompra;
+        frmVentassnuevas.lblutilidad.setText(df.format(utilidad )+ "");
     }
 
     public void guardarventa(int idproveedor, float total, String fechaventa, String fechapago) {
@@ -209,7 +210,7 @@ public class MetodosVentas {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
             PreparedStatement guardar = con.prepareStatement("insert into tblventas (idcliente,total,abono,saldo"
-                    + ",fecha_compra,pagada,estatus,fecha_pago) values (?,?,0,?,?,0,'Activa',?)");
+                    + ",fecha_venta,pagada,estatus,fecha_pago) values (?,?,0,?,?,0,'Activa',?)");
             guardar.setInt(1, idproveedor);
             guardar.setFloat(2, total);
             guardar.setFloat(3, total);
@@ -220,58 +221,61 @@ public class MetodosVentas {
             JOptionPane.showMessageDialog(null, "Se Grabo Correctamente");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
         }
 
     }
 
-    public void guardarventasmovimientos(int idcompra, int idarticulo, float cantidad, float preciocompra,float precioventa) {
+    public void guardarventasmovimientos(int idventa, int idarticulo, float cantidad, float preciocompra, float precioventa, float totalmovimiento) {
         try {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            PreparedStatement guardarmovimientos = con.prepareStatement("insert into tblventassmovimientos (idventa,"
-                    + "idarticulo,cantidad,preciocompra,precioventa) values(?,?,?,?,?)");
-            guardarmovimientos.setInt(1, idcompra);
+            PreparedStatement guardarmovimientos = con.prepareStatement("insert into tblventasmovimientos (idventas,"
+                    + "idarticulo,cantidad,preciocompra,precioventa,totalmovimiento) values(?,?,?,?,?,?)");
+            guardarmovimientos.setInt(1, idventa);
             guardarmovimientos.setInt(2, idarticulo);
             guardarmovimientos.setFloat(3, cantidad);
             guardarmovimientos.setFloat(4, preciocompra);
             guardarmovimientos.setFloat(5, precioventa);
+            guardarmovimientos.setFloat(6, totalmovimiento);
             guardarmovimientos.execute();
             guardarmovimientos.close();
-            JOptionPane.showMessageDialog(null, "se guardo correctamente movimientos");
+//            JOptionPane.showMessageDialog(null, "se guardo correctamente movimientos");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
         }
     }
 
-    public void actualizarexistenciaaritculos(int idarticulo, float preciocompra, float cantidad) {
+    public void actualizarexistenciaaritculos(int idarticulo, float cantidad) {
         try {
-            float existencia =0;
+            float existencia = 0;
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
             rs = stmt.executeQuery("select tblarticulos.existencia from tblarticulos where "
-                    + "idarticulos='"+ idarticulo+ "'");
+                    + "idarticulos='" + idarticulo + "'");
             if (rs.next()) {
                 existencia = rs.getFloat(1);
             }
-            existencia = existencia+cantidad;
-            PreparedStatement acutalizarexistencia = con.prepareStatement("update tblarticulos set precio_compra=?"
-                    + ",existencia=? where idArticulos=?");
-            acutalizarexistencia.setFloat(1, preciocompra);
-            acutalizarexistencia.setFloat(2, existencia);
-            acutalizarexistencia.setInt(3, idarticulo);
+            existencia = existencia - cantidad;
+            PreparedStatement acutalizarexistencia = con.prepareStatement("update tblarticulos set existencia =?"
+                    + " where idarticulos=?");
+            acutalizarexistencia.setFloat(1, existencia);
+            acutalizarexistencia.setInt(2, idarticulo);
             acutalizarexistencia.executeUpdate();
             acutalizarexistencia.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
+            e.printStackTrace();
         }
     }
 
-    public int ultimoidcompra() {
+    public int ultimoidventa() {
         int lasid = 0;
         try {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            rs = stmt.executeQuery("Select max(idCompras) from tblcompras;");
+            rs = stmt.executeQuery("Select max(idventas) from tblventas;");
             if (rs.next()) {
                 lasid = rs.getInt(1) + 1;
             }
@@ -281,6 +285,4 @@ public class MetodosVentas {
         return lasid;
     }
 
-    
-    
 }

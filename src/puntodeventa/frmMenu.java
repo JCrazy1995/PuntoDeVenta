@@ -11,6 +11,7 @@ import Compras.frmCompras;
 import Familias.frmfamilia;
 import SubFamilias.frmsubfamilia;
 import Usuarios.frmClientes;
+import Ventas.frmVentas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -65,6 +66,7 @@ public class frmMenu extends javax.swing.JFrame {
         btnCompras = new javax.swing.JButton();
         btnFamilia = new javax.swing.JButton();
         btnSubfamilia = new javax.swing.JButton();
+        btnVentas = new javax.swing.JButton();
         lblminimizar = new javax.swing.JLabel();
         lblcerrar = new javax.swing.JLabel();
 
@@ -124,6 +126,13 @@ public class frmMenu extends javax.swing.JFrame {
             }
         });
 
+        btnVentas.setText("Ventas");
+        btnVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentasActionPerformed(evt);
+            }
+        });
+
         panel1.setLayer(btnArticulos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(btnUsuarios, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -131,6 +140,7 @@ public class frmMenu extends javax.swing.JFrame {
         panel1.setLayer(btnCompras, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(btnFamilia, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panel1.setLayer(btnSubfamilia, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panel1.setLayer(btnVentas, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -151,11 +161,12 @@ public class frmMenu extends javax.swing.JFrame {
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnFamilia)
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(btnProveedores)
-                                .addGap(63, 63, 63)
-                                .addComponent(btnCompras))))
+                            .addComponent(btnProveedores)
+                            .addComponent(btnFamilia))
+                        .addGap(63, 63, 63)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVentas)
+                            .addComponent(btnCompras)))
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(117, 117, 117)
                         .addComponent(btnSubfamilia)))
@@ -176,7 +187,9 @@ public class frmMenu extends javax.swing.JFrame {
                     .addComponent(btnProveedores)
                     .addComponent(btnCompras))
                 .addGap(48, 48, 48)
-                .addComponent(btnFamilia)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFamilia)
+                    .addComponent(btnVentas))
                 .addGap(18, 18, 18)
                 .addComponent(btnSubfamilia)
                 .addContainerGap(136, Short.MAX_VALUE))
@@ -302,6 +315,13 @@ public class frmMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSubfamiliaActionPerformed
 
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
+        // TODO add your handling code here:
+        frmVentas venta = new frmVentas();
+        venta.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVentasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -344,6 +364,7 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnProveedores;
     private javax.swing.JButton btnSubfamilia;
     private javax.swing.JButton btnUsuarios;
+    private javax.swing.JButton btnVentas;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblcerrar;

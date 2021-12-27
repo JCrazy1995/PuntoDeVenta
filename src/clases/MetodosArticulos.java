@@ -39,7 +39,7 @@ public class MetodosArticulos {
         try {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            PreparedStatement InsertarArticulos = con.prepareStatement("Insert into tblarticulos (nombre,precio_venta,"
+            PreparedStatement InsertarArticulos = con.prepareStatement("Insert into tblarticulos (artnombre,precio_venta,"
                     + "precio_compra,existencia,inventario_fisico,empaquetado,estatus,id_familia,id_subfamilia)values(?,?,?,?,?,?,?,?,?);");
             InsertarArticulos.setString(1, nombre);
             InsertarArticulos.setFloat(2, precio);
@@ -81,7 +81,7 @@ public class MetodosArticulos {
         try {
             con = conectar.conectarMySQL();
             stmt = con.createStatement();
-            PreparedStatement actualizar = con.prepareStatement("update tblarticulos set nombre=?,precio_venta=?"
+            PreparedStatement actualizar = con.prepareStatement("update tblarticulos set artnombre=?,precio_venta=?"
                     + ",precio_compra=?,empaquetado=?,id_familia =?,id_subfamilia=? where idArticulos=?");
             actualizar.setString(1, nombre);
             actualizar.setFloat(2, precio);

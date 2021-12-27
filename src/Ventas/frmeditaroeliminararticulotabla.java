@@ -5,7 +5,6 @@
  */
 package Ventas;
 
-import Compras.*;
 import clases.modalInternalFrame;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -20,7 +19,7 @@ public class frmeditaroeliminararticulotabla extends modalInternalFrame {
      * Creates new form frmeditaroeliminararticulotabla
      */
     char validarnumeros;
-    public static float totalfila, totalCompra;
+    public static float totalfila, totalventa;
     public static int fila;
     float cantidad, precio, total;
 
@@ -37,14 +36,14 @@ public class frmeditaroeliminararticulotabla extends modalInternalFrame {
     }
 
     public void eliminar(){
-        totalCompra=totalCompra-totalfila;
-        frmComprasnuevas.lblTotal.setText(totalCompra+"");
-         int rowCount= frmComprasnuevas.modelo.getRowCount();  
-         int filaprueba = frmComprasnuevas.tblCompra.getSelectedRow();
+        totalventa=totalventa-totalfila;
+        frmVentassnuevas.lblTotalVenta.setText(totalventa+"");
+         int rowCount= frmVentassnuevas.modelo.getRowCount();  
+         int filaprueba = frmVentassnuevas.tblVenta.getSelectedRow();
          
-         frmComprasnuevas.click=0;
+         frmVentassnuevas.click=0;
          if(filaprueba>=0){
-             frmComprasnuevas.modelo.removeRow(filaprueba);
+             frmVentassnuevas.modelo.removeRow(filaprueba);
          }else{
              JOptionPane.showMessageDialog(null, "nel puto");
          }
