@@ -25,7 +25,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author carlo
  */
-public class Metodos {
+public class MetodosClientes {
     Connection con = null;
     static ResultSet rs=null;
     private Statement stmt=null;
@@ -229,6 +229,8 @@ public class Metodos {
             ModeloColumnas.getColumn(8).setPreferredWidth(70);
             ModeloColumnas.getColumn(9).setPreferredWidth(50);
      }
+     
+    
     public void ocultarbotones()
     {
          frmClientes.btnUsuarioCrear.setVisible(false);

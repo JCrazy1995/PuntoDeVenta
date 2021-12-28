@@ -52,15 +52,15 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
 
     public void enviar() {
 
-        String id, nombre, preciocompra,precioventa;
+        String id, nombre, preciocompra, precioventa;
         id = tblVentassTabla.getValueAt(tblVentassTabla.getSelectedRow(), 0).toString();
         nombre = tblVentassTabla.getValueAt(tblVentassTabla.getSelectedRow(), 1).toString();
         preciocompra = tblVentassTabla.getValueAt(tblVentassTabla.getSelectedRow(), 2).toString();
         precioventa = tblVentassTabla.getValueAt(tblVentassTabla.getSelectedRow(), 3).toString();
         lblid.setText(id);
         lblnombre.setText(nombre);
-        txtprecioventa.setText(df.format(Double.parseDouble(preciocompra))+"");
-        txtpreciocompra.setText(df.format(Double.parseDouble(precioventa))+"");
+        txtprecioventa.setText(df.format(Double.parseDouble(preciocompra)) + "");
+        txtpreciocompra.setText(df.format(Double.parseDouble(precioventa)) + "");
         txtcantidad.requestFocus();
         frmVentasBuscarArticulo2.txtFiltroArticulos.setText(null);
         pnltabla.setVisible(false);
@@ -68,7 +68,7 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
 
     public void botonguardar() {
         frmVentassnuevas.pnlTablaventas.setVisible(true);
-        String id, nombre, preciocompra,precioventa, cantidad,totcompra;
+        String id, nombre, preciocompra, precioventa, cantidad, totcompra;
         float total;
         Double totalcompra;
         id = lblid.getText();
@@ -77,9 +77,9 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
         preciocompra = txtpreciocompra.getText();
         cantidad = txtcantidad.getText();
         total = Float.parseFloat(lbltotal.getText());
-        totcompra = df.format((Double.parseDouble(preciocompra)*Double.parseDouble(cantidad)))+"";
-        totalcompra=Double.parseDouble(totcompra);
-        met.enviarDatosVentas(id, nombre, precioventa,preciocompra, cantidad, total,totalcompra);
+        totcompra = df.format((Double.parseDouble(preciocompra) * Double.parseDouble(cantidad))) + "";
+        totalcompra = Double.parseDouble(totcompra);
+        met.enviarDatosVentas(id, nombre, precioventa, preciocompra, cantidad, total, totalcompra);
 //        met.limpiarCamposFrmventasBuscarArticulo();
         txtFiltroArticulos.requestFocus();
     }
@@ -103,7 +103,6 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         txtcantidad = new javax.swing.JTextField();
         txtprecioventa = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
         lblid = new javax.swing.JLabel();
         lblnombre = new javax.swing.JLabel();
         lbltotal = new javax.swing.JLabel();
@@ -162,8 +161,6 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
             }
         });
 
-        jButton2.setText("x");
-
         lblid.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         lbltotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -196,12 +193,9 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
                 .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblid, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtpreciocompra, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                            .addComponent(lbltotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtpreciocompra, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                        .addComponent(lbltotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(lblnombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtcantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                     .addComponent(txtprecioventa, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -230,17 +224,11 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtpreciocompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbltotal, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(20, 20, 20))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbltotal, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         btnagregarmovimiento.setText("Agregar");
@@ -360,10 +348,10 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
             cantidad = Double.parseDouble(txtcantidad.getText());
             precio = Double.parseDouble(txtprecioventa.getText());
             total = precio * cantidad;
-            lbltotal.setText(df.format(total )+"");
+            lbltotal.setText(df.format(total) + "");
             txtprecioventa.requestFocus();
         }
-         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
         }
     }//GEN-LAST:event_txtcantidadKeyPressed
@@ -375,10 +363,10 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
             cantidad = Double.parseDouble(txtcantidad.getText());
             precio = Double.parseDouble(txtprecioventa.getText());
             total = precio * cantidad;
-            lbltotal.setText(df.format(total )+"");
+            lbltotal.setText(df.format(total) + "");
             txtpreciocompra.requestFocus();
         }
-         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
         }
     }//GEN-LAST:event_txtprecioventaKeyPressed
@@ -402,7 +390,7 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             enviar();
         }
-         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
         }
     }//GEN-LAST:event_tblVentassTablaKeyPressed
@@ -411,17 +399,20 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
         // TODO add your handling code here:
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            tblVentassTabla.requestFocus();
-            tblVentassTabla.changeSelection(0, 0, false, false);
+            if (mo.getRowCount() > 0) {
+                tblVentassTabla.requestFocus();
+                tblVentassTabla.changeSelection(0, 0, false, false);
+            }
+
         }
-         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
         }
     }//GEN-LAST:event_txtFiltroArticulosKeyPressed
 
     private void txtFiltroArticulosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroArticulosKeyTyped
         // TODO add your handling code here:
- 
+
     }//GEN-LAST:event_txtFiltroArticulosKeyTyped
 
     private void txtFiltroArticulosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroArticulosKeyReleased
@@ -433,7 +424,7 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
         } else {
             met.modeloTablaBuscar();
             pnltabla.setVisible(true);
-            
+
             try {
                 id = Integer.parseInt(txtFiltroArticulos.getText().trim());
                 met.filtradoBusquedaID(id);
@@ -449,7 +440,7 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
     private void btnagregarmovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarmovimientoActionPerformed
         // TODO add your handling code here:
         botonguardar();
-        
+
 
     }//GEN-LAST:event_btnagregarmovimientoActionPerformed
 
@@ -459,17 +450,17 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
             botonguardar();
         }
         txtFiltroArticulos.requestFocus();
-         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
         }
     }//GEN-LAST:event_btnagregarmovimientoKeyPressed
 
     private void txtpreciocompraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpreciocompraKeyPressed
         // TODO add your handling code here:
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btnagregarmovimiento.requestFocus();
         }
-         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.dispose();
         }
     }//GEN-LAST:event_txtpreciocompraKeyPressed
@@ -482,7 +473,6 @@ public class frmVentasBuscarArticulo2 extends modalInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnagregarmovimiento;
     private javax.swing.JCheckBox cbCodigoBusqueda;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

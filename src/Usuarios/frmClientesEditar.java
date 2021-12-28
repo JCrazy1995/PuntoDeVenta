@@ -5,7 +5,7 @@
  */
 package Usuarios;
 
-import clases.Metodos;
+import clases.MetodosClientes;
 
 /**
  *
@@ -19,7 +19,7 @@ public class frmClientesEditar extends javax.swing.JInternalFrame {
     char validarnumeros;//Para el evento keyEvent y es para validar si son enteros en lo que recibio
     String cantidadnumeros;//Se usa para ver cuantos numeros recibio del Telefono
     String combobox;//Para saber que item esta selecionado 
-    Metodos met = new Metodos();//inicializas la clase metodos
+    MetodosClientes met = new MetodosClientes();//inicializas la clase metodos
     public frmClientesEditar() 
     {
         initComponents();

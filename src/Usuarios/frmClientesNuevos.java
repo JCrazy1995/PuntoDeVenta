@@ -5,7 +5,7 @@
  */
 package Usuarios;
 
-import clases.Metodos;
+import clases.MetodosClientes;
 
 /**
  *
@@ -16,7 +16,7 @@ import clases.Metodos;
     /**
      * Creates new form frmUsuariosNuevos
      */
-    Metodos met = new Metodos (); //instacio la clase metodos
+    MetodosClientes met = new MetodosClientes (); //instacio la clase metodos
     char validarnumeros; //variable para el evento de solo numero
     String cantidadnumeros;//variable para la cantidad de numeros
     String combobox; //variable para el tipo de dato del combobox
@@ -357,7 +357,7 @@ import clases.Metodos;
         diasCredito=Integer.parseInt(txtdiascredito.getText());
         exterior=Integer.parseInt(txtexterior.getText());
         cp=Integer.parseInt(txtcp.getText());
-        Metodos me=new Metodos();
+        MetodosClientes me=new MetodosClientes();
         me.guardarClientes(nombre, telefono, tpago, diasCredito, colonia, calle, exterior, interior, cp);
     }//GEN-LAST:event_btnGuardarClienteActionPerformed
 

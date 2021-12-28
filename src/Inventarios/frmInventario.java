@@ -3,32 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ventas;
+package Inventarios;
 
 import clases.MetodosImprimir;
+import clases.MetodosInventarios;
 import clases.MetodosVentas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 import puntodeventa.frmMenu;
 
 /**
  *
  * @author usuario
  */
-public class frmVentas extends javax.swing.JFrame {
+public class frmInventario extends javax.swing.JFrame {
 
     /**
      * Creates new form frmCompras
      */
     public Dimension desktopSize;// variable para posicionar el jinternal
     public Dimension FrameSize;// variable para posicionar el jinternal
-    MetodosVentas metventas = new MetodosVentas();
-    MetodosImprimir metimprimir = new MetodosImprimir();
+    MetodosInventarios metinventario = new MetodosInventarios();
+    public static boolean controlModelo = false;
+    public static DefaultTableModel modelo = new DefaultTableModel();
 
-    public frmVentas() {
+    public frmInventario() {
         initComponents();
         tamañopantalla();
     }
@@ -59,9 +62,7 @@ public class frmVentas extends javax.swing.JFrame {
 
         };
         btnRegresar = new javax.swing.JButton();
-        btnventasnuevas = new javax.swing.JButton();
-        btnreimprimir = new javax.swing.JButton();
-        btncancelar = new javax.swing.JButton();
+        btninventarioingresar = new javax.swing.JButton();
         lblminimizar = new javax.swing.JLabel();
         lblcerrar = new javax.swing.JLabel();
 
@@ -79,31 +80,15 @@ public class frmVentas extends javax.swing.JFrame {
             }
         });
 
-        btnventasnuevas.setText("Registrar");
-        btnventasnuevas.addActionListener(new java.awt.event.ActionListener() {
+        btninventarioingresar.setText("Ingresar Inventario");
+        btninventarioingresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnventasnuevasActionPerformed(evt);
-            }
-        });
-
-        btnreimprimir.setText("Reimprimir");
-        btnreimprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnreimprimirActionPerformed(evt);
-            }
-        });
-
-        btncancelar.setText("Cancelar");
-        btncancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncancelarActionPerformed(evt);
+                btninventarioingresarActionPerformed(evt);
             }
         });
 
         panel2.setLayer(btnRegresar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panel2.setLayer(btnventasnuevas, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panel2.setLayer(btnreimprimir, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panel2.setLayer(btncancelar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panel2.setLayer(btninventarioingresar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
@@ -113,28 +98,17 @@ public class frmVentas extends javax.swing.JFrame {
                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panel2Layout.createSequentialGroup()
-                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel2Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(btnventasnuevas)
-                        .addGap(56, 56, 56)
-                        .addComponent(btncancelar))
-                    .addGroup(panel2Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(btnreimprimir)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addComponent(btninventarioingresar)
+                .addContainerGap(407, Short.MAX_VALUE))
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel2Layout.createSequentialGroup()
                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnventasnuevas)
-                    .addComponent(btncancelar))
-                .addGap(29, 29, 29)
-                .addComponent(btnreimprimir)
-                .addGap(0, 246, Short.MAX_VALUE))
+                .addComponent(btninventarioingresar)
+                .addGap(0, 298, Short.MAX_VALUE))
         );
 
         lblminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/minimizar.png"))); // NOI18N
@@ -214,44 +188,19 @@ public class frmVentas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void btnventasnuevasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnventasnuevasActionPerformed
+    private void btninventarioingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninventarioingresarActionPerformed
         // TODO add your handling code here:
-        frmVentassnuevas ventas = new frmVentassnuevas();
-        panel2.add(ventas);
+        frminventarioregistro registro = new frminventarioregistro();
+        panel2.add(registro);
         desktopSize = panel2.getSize();
-        FrameSize = ventas.getSize();
-        ventas.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        FrameSize = registro.getSize();
+        registro.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
 
-        metventas.modeloTablaVentas();
-        ventas.show();
-    }//GEN-LAST:event_btnventasnuevasActionPerformed
-
-    private void btnreimprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreimprimirActionPerformed
-        // TODO add your handling code here:
-        frmrventasreimprimir.modelo.setRowCount(0);
-        frmrventasreimprimir reimprimir = new frmrventasreimprimir();
-        panel2.add(reimprimir);
-        desktopSize = panel2.getSize();
-        FrameSize = reimprimir.getSize();
-        reimprimir.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        reimprimir.show();
-        metimprimir.modelotablareimprimir();
-        metimprimir.llenartablareimpiresion();
-    }//GEN-LAST:event_btnreimprimirActionPerformed
-
-    private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
-        // TODO add your handling code here:
-        
-        frmventasbuscarcancelar.modelo.setRowCount(0);
-        frmventasbuscarcancelar cancelar = new frmventasbuscarcancelar();
-        panel2.add(cancelar);
-        desktopSize = panel2.getSize();
-        FrameSize = cancelar.getSize();
-        cancelar.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        cancelar.show();
-        metventas.modelotablabuscarcancelar();
-        metventas.llenartablabuscarcancelar();
-    }//GEN-LAST:event_btncancelarActionPerformed
+        metinventario.modeloTablaregistroinventario();
+        frminventarioregistro.modelo.setRowCount(0);
+        metinventario.llenartablaregistroinventario();
+        registro.show();
+    }//GEN-LAST:event_btninventarioingresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,30 +219,30 @@ public class frmVentas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmVentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmVentas().setVisible(true);
+                new frmInventario().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton btncancelar;
-    private javax.swing.JButton btnreimprimir;
-    private javax.swing.JButton btnventasnuevas;
+    private javax.swing.JButton btninventarioingresar;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel lblcerrar;
     private javax.swing.JLabel lblminimizar;

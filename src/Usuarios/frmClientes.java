@@ -6,7 +6,7 @@
 package Usuarios;
 
 import Articulos.frmArticulosBuscar;
-import clases.Metodos;
+import clases.MetodosClientes;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -26,7 +26,7 @@ public class frmClientes extends javax.swing.JFrame {
     Dimension FrameSize;// variable para posicionar el jinternal
     public static  int valor =0;
     public static boolean vezuna=false;//Variable para que solo se pinte una vez el modelo en la tabla
-     Metodos met = new Metodos ();//mandamos a llamar a metodos.
+     MetodosClientes met = new MetodosClientes ();//mandamos a llamar a metodos.
     public frmClientes() {
         initComponents();
         tamañopantalla();

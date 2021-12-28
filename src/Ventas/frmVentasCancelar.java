@@ -5,20 +5,12 @@
  */
 package Ventas;
 
-import Usuarios.frmClientes;
-import Usuarios.frmClientesBuscar;
-import clases.MetodosClientes;
-import clases.MetodosImprimir;
 import clases.MetodosVentas;
 
 import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import traducir.Traducir;
 
@@ -26,16 +18,14 @@ import traducir.Traducir;
  *
  * @author usuario
  */
-public class frmVentassnuevas extends javax.swing.JInternalFrame {
+public class frmVentasCancelar extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form frmComprasnuevas
      */
     public Dimension desktopSize;// variable para posicionar el jinternal
     public Dimension FrameSize;// variable para posicionar el jinternal
-    MetodosClientes metcliente = new MetodosClientes();
     MetodosVentas metventas = new MetodosVentas();
-    MetodosImprimir metimprimir = new MetodosImprimir();
     public static DateFormat formatofecha = new SimpleDateFormat("dd/MM/yy");
     SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yy");// variable para el formato de la fecha a mostrar en el lblfechapago
     Date fecha; //Variable tomar fecha del jdate chooser
@@ -46,125 +36,26 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
     public static DefaultTableModel modelo = new DefaultTableModel();
     public static boolean controlModelo = false;
     Traducir tra = new Traducir();
+    int idventa, idarticulo;
+    float cantidad;
+    int filas;
 
-    public frmVentassnuevas() {
+    public frmVentasCancelar() {
         initComponents();
-        jdcfechaventa.setDate(new Date());
-        jdcfechaventa.setEnabled(false);
-        pnlTablaventas.setVisible(false);
-        lblidventa.setText(metventas.ultimoidventa() + "");
-        dobleclick();
+
+        pnlTablaventas.setVisible(true);
     }
 
-    public void prueba() {
-        jdcfechaventa.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            @Override
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jdcfechaventaPropertyChange(evt);
-            }
-        });
-    }
 ///acomodar lo de guardar venta
-
-    public void guardarventa() {
-        int idventa, idcliente, idarticulo;
-        int filas = modelo.getRowCount();
-        float total, cantidad, preciocompra, precioventa,totalmovimiento;
-        String fechaventa, fecha_pago;
-        if (filas == 0 || "".equals(lblFechaPago.getText())) {
-            JOptionPane.showMessageDialog(null, "Faltan datos para guardar");
-            return;
-        }
-        SimpleDateFormat formatomysql = new SimpleDateFormat("yyyy-MM-dd");
-        fecha_pago = formatomysql.format(metventas.sumarRestarDiasFecha(fecha, dias));
-        fechaventa = formatomysql.format(metventas.sumarRestarDiasFecha(fecha, 0));
-        idventa = Integer.parseInt(lblidventa.getText());
-        idcliente = Integer.parseInt(lblncliente.getText());
-        total = Float.parseFloat(lblTotalVenta.getText());
-        metventas.guardarventa(idcliente, total, fechaventa, fecha_pago);
-
-        for (int x = 0; x < filas; x++) {
-            idarticulo = Integer.parseInt(tblVenta.getValueAt(x, 0).toString());
-            cantidad = Float.parseFloat(tblVenta.getValueAt(x, 4).toString());
-            preciocompra = Float.parseFloat(tblVenta.getValueAt(x, 3).toString());
-            precioventa = Float.parseFloat(tblVenta.getValueAt(x, 2).toString());
-            totalmovimiento=Float.parseFloat(tblVenta.getValueAt(x, 5).toString());
-            metventas.actualizarexistenciaaritculos(idarticulo, cantidad);
-            metventas.guardarventasmovimientos(idventa, idarticulo, cantidad, preciocompra, precioventa,totalmovimiento);
-        }
-
-    }
-
     public void limpiarFormulario() {
         lblncliente.setText("");
         lblcliente.setText("");
         lbltipopago.setText("");
         lbldiascredito.setText("");
-        jdcfechaventa.setDate(new Date());
         lblFechaPago.setText("");
         modelo.setRowCount(0);
         lblTotalVenta.setText("0");
         pnlTablaventas.setVisible(false);
-        jdcfechaventa.setEnabled(false);
-    }
-
-    public static void dobleclick() {
-
-        tblVenta.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent Mouse_evt) {
-
-                if (Mouse_evt.getClickCount() == 1) {
-                    fila = tblVenta.getSelectedRow();
-                    frmeditaroeliminararticulotabla me = new frmeditaroeliminararticulotabla();
-                    columna = tblVenta.getColumnCount();
-                    frmeditaroeliminararticulotabla.totalfila = Float.parseFloat(tblVenta.getValueAt(fila, 4).toString());
-                    frmeditaroeliminararticulotabla.lblid.setText(tblVenta.getValueAt(fila, 0).toString());
-                    frmeditaroeliminararticulotabla.lblnombre.setText(tblVenta.getValueAt(fila, 1).toString());
-                    frmeditaroeliminararticulotabla.txtprecio.setText(tblVenta.getValueAt(fila, 2).toString());
-                    frmeditaroeliminararticulotabla.txtcantidad.setText(tblVenta.getValueAt(fila, 3).toString());
-                    frmeditaroeliminararticulotabla.lbltotal.setText(tblVenta.getValueAt(fila, 4).toString());
-                    me.setModal(true);
-                    frmVentas.panel2.add(me);
-                    me.setVisible(true);
-
-                }
-
-            }
-        });
-
-    }
-
-    void buscararticulo() {
-        if (lblncliente.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "No ha elegido Cliente");
-        }
-        frmVentasBuscarArticulo2 buscar = new frmVentasBuscarArticulo2();
-        buscar.setModal(true);
-        desktopSize = frmVentas.panel2.getSize();
-        FrameSize = buscar.getSize();
-        buscar.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        frmVentas.panel2.add(buscar);
-        buscar.show();
-    }
-
-    void buscarcliente() {
-        frmClientesBuscar buscar = new frmClientesBuscar();
-        buscar.setModal(true);
-//        buscar.setBounds(160, 180, 550, 450);
-        frmVentas.panel2.add(buscar);
-        desktopSize = frmVentas.panel2.getSize();
-        FrameSize = buscar.getSize();
-        buscar.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-        frmClientesBuscar.inicializador = 3;
-        if (frmClientes.vezuna == false) {
-            metcliente.ModeloTabla();
-        } else {
-            frmClientesBuscar.tblClientesBuscar.setModel(frmClientesBuscar.tablaBuscar);
-        }
-
-        metcliente.BuscarClientes();
-        buscar.show();
     }
 
     /**
@@ -189,11 +80,8 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
         lblcliente = new javax.swing.JLabel();
         lbltipopago = new javax.swing.JLabel();
         lbltelefono = new javax.swing.JLabel();
-        btnbuscarCliente = new javax.swing.JButton();
-        btnBuscarArticulos = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jdcfechaventa = new com.toedter.calendar.JDateChooser();
         lblFechaPago = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -209,17 +97,13 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
         lblcp = new javax.swing.JLabel();
         lblcalle = new javax.swing.JLabel();
         lblnexterior = new javax.swing.JLabel();
+        lblFechaVenta = new javax.swing.JLabel();
         pnlTablaventas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblVenta = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
+        tblVentacancelar = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
-        lblTotalcompra = new javax.swing.JLabel();
         lblTotalVenta = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        lblutilidad = new javax.swing.JLabel();
-        btnGuardar = new javax.swing.JButton();
-        btnImprimirVenta = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Prueba"));
 
@@ -306,41 +190,9 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnbuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/lupa.png"))); // NOI18N
-        btnbuscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnbuscarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbuscarClienteActionPerformed(evt);
-            }
-        });
-        btnbuscarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnbuscarClienteKeyPressed(evt);
-            }
-        });
-
-        btnBuscarArticulos.setText("Buscar Articulos");
-        btnBuscarArticulos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarArticulosActionPerformed(evt);
-            }
-        });
-        btnBuscarArticulos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnBuscarArticulosKeyPressed(evt);
-            }
-        });
-
         jLabel4.setText("Fecha Pago:");
 
         jLabel3.setText("Fecha Venta:");
-
-        jdcfechaventa.setDateFormatString("dd/MM/y");
-        jdcfechaventa.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jdcfechaventaPropertyChange(evt);
-            }
-        });
 
         jLabel8.setText("N° Venta");
 
@@ -452,26 +304,21 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(402, 402, 402)
-                        .addComponent(btnBuscarArticulos))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(btnbuscarCliente))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jdcfechaventa, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblFechaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -483,29 +330,22 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jdcfechaventa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFechaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(btnbuscarCliente)))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscarArticulos))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        tblVenta.setModel(new javax.swing.table.DefaultTableModel(
+        tblVentacancelar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -516,7 +356,7 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tblVenta);
+        jScrollPane1.setViewportView(tblVentacancelar);
 
         javax.swing.GroupLayout pnlTablaventasLayout = new javax.swing.GroupLayout(pnlTablaventas);
         pnlTablaventas.setLayout(pnlTablaventasLayout);
@@ -535,20 +375,10 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                 .addGap(31, 31, 31))
         );
 
-        jLabel7.setText("Total  Compra:");
-
         jLabel14.setText("Total Venta:");
-
-        lblTotalcompra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTotalcompra.setText("0");
 
         lblTotalVenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotalVenta.setText("0");
-
-        jLabel15.setText("Utilidad:");
-
-        lblutilidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblutilidad.setText("0");
 
         javax.swing.GroupLayout panRegistroLayout = new javax.swing.GroupLayout(panRegistro);
         panRegistro.setLayout(panRegistroLayout);
@@ -563,18 +393,10 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panRegistroLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTotalcompra, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
                 .addComponent(lblTotalVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15)
-                .addGap(18, 18, 18)
-                .addComponent(lblutilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(28, 28, 28))
         );
         panRegistroLayout.setVerticalGroup(
             panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -584,34 +406,16 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlTablaventas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel15)
-                        .addComponent(lblutilidad))
-                    .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14)
-                        .addComponent(lblTotalcompra)
-                        .addComponent(lblTotalVenta))
-                    .addComponent(jLabel7))
+                .addGroup(panRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(lblTotalVenta))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-        btnGuardar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnGuardarKeyPressed(evt);
-            }
-        });
-
-        btnImprimirVenta.setText("Imprimir");
-        btnImprimirVenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirVentaActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -620,115 +424,53 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(284, 284, 284)
-                        .addComponent(btnGuardar)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnImprimirVenta)))
+                .addContainerGap()
+                .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(322, 322, 322))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnImprimirVenta))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jdcfechaventaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jdcfechaventaPropertyChange
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        try {
-            fecha = jdcfechaventa.getDate();///tomo el valor del jdate chooser
-            fechapago = formatofecha.format(fecha); ///le aplico el formato de dia/mes/año
-            dias = Integer.parseInt(lbldiascredito.getText());
-            lblFechaPago.setText(formateador.format(metventas.sumarRestarDiasFecha(fecha, dias)));
-
-        } catch (Exception e) {
+        filas = modelo.getRowCount();
+        for (int x = 0; x < filas; x++) {
+            idarticulo = Integer.parseInt(tblVentacancelar.getValueAt(x, 0).toString());
+            cantidad = Float.parseFloat(tblVentacancelar.getValueAt(x, 4).toString());
+            metventas.actualizarexistenciaaritculosventacancelada(idarticulo, cantidad);
         }
-    }//GEN-LAST:event_jdcfechaventaPropertyChange
-
-    private void btnBuscarArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArticulosActionPerformed
-        // TODO add your handling code here:
-        buscararticulo();
-    }//GEN-LAST:event_btnBuscarArticulosActionPerformed
-
-    private void btnbuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarClienteActionPerformed
-        // TODO add your handling code here:
-        buscarcliente();
-
-    }//GEN-LAST:event_btnbuscarClienteActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
-        guardarventa();
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnGuardarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGuardarKeyPressed
-        // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            guardarventa();
-        }
-    }//GEN-LAST:event_btnGuardarKeyPressed
-
-    private void btnBuscarArticulosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarArticulosKeyPressed
-        // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            buscararticulo();
-        }
-    }//GEN-LAST:event_btnBuscarArticulosKeyPressed
-
-    private void btnbuscarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnbuscarClienteKeyPressed
-        // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            buscarcliente();
-        }
-    }//GEN-LAST:event_btnbuscarClienteKeyPressed
-
-    private void btnImprimirVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirVentaActionPerformed
-        // TODO add your handling code here:
-         int filas = modelo.getRowCount();
-        String Letras,Cliente;
-        int idventa = Integer.parseInt(lblidventa.getText());
-        Letras =tra.traducirNumeros(lblTotalVenta.getText(), rootPaneCheckingEnabled);
-        Cliente = lblcliente.getText();
-        JOptionPane.showMessageDialog(null, Letras);
-        JOptionPane.showMessageDialog(null, Cliente);
-        metimprimir.imprimirnotaoriginal(idventa, Letras,Cliente,filas);
-        
-        lblidventa.setText(metventas.ultimoidventa() + "");
-        limpiarFormulario();
-    }//GEN-LAST:event_btnImprimirVentaActionPerformed
+        idventa = Integer.parseInt(lblidventa.getText());
+        metventas.cancelarventa(idventa);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarArticulos;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnImprimirVenta;
-    private javax.swing.JButton btnbuscarCliente;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -738,10 +480,9 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    public static com.toedter.calendar.JDateChooser jdcfechaventa;
     public static javax.swing.JLabel lblFechaPago;
+    public static javax.swing.JLabel lblFechaVenta;
     public static javax.swing.JLabel lblTotalVenta;
-    public static javax.swing.JLabel lblTotalcompra;
     public static javax.swing.JLabel lblcalle;
     public static javax.swing.JLabel lblcliente;
     public static javax.swing.JLabel lblcolonia;
@@ -752,9 +493,8 @@ public class frmVentassnuevas extends javax.swing.JInternalFrame {
     public static javax.swing.JLabel lblnexterior;
     public static javax.swing.JLabel lbltelefono;
     public static javax.swing.JLabel lbltipopago;
-    public static javax.swing.JLabel lblutilidad;
     public static javax.swing.JPanel panRegistro;
     public static javax.swing.JPanel pnlTablaventas;
-    public static javax.swing.JTable tblVenta;
+    public static javax.swing.JTable tblVentacancelar;
     // End of variables declaration//GEN-END:variables
 }

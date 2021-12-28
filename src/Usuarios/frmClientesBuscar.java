@@ -5,8 +5,9 @@
  */
 package Usuarios;
 
-import clases.Metodos;
+import clases.MetodosClientes;
 import clases.MetodosVentas;
+import clases.modalInternalFrame;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author usuario
  */
-public final class frmClientesBuscar extends javax.swing.JInternalFrame {
+public final class frmClientesBuscar extends modalInternalFrame {
 
     /**
      * Creates new form frmClientesBuscar
@@ -28,7 +29,7 @@ public final class frmClientesBuscar extends javax.swing.JInternalFrame {
         }
 
     };
-    Metodos met = new Metodos();/// inicializa la clase de metodos
+    MetodosClientes met = new MetodosClientes();/// inicializa la clase de metodos
     MetodosVentas metventas = new MetodosVentas();
     frmClientesEditar editar = new frmClientesEditar();
     Dimension desktopSize;
